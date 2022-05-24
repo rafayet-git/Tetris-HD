@@ -17,6 +17,8 @@ We are going to be making Tetris in Processing. You play Tetris by trying to fil
 
 *5/23:*\
 I created the Grid  class, with the constructors and removeRow(row)
+*5/24:*\
+I worked on the Tetromino class, added the private variables and constructors as well as refill and getNextBlock
 
 ### Wing Jiang
 
