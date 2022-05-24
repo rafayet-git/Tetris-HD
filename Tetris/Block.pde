@@ -19,6 +19,7 @@ public class Block {
  
  void remove (Block b) {
    if (b != null) {
+     noStroke();
      fill(255);
      rect(b.x, b.y,10,10);
    }
