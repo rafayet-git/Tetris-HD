@@ -1,6 +1,6 @@
 public class move{
   int x,y;
-  Tetromino piece;
+  int[][] coord = new int[2][4];
   
   void moveLeft() {
     x -= 1;
@@ -15,7 +15,7 @@ public class move{
     
   }
   void rotateCounter() {
-    
+    rotate(-PI/2.0);
   }
   
   void dropDown() {
