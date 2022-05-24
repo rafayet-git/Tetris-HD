@@ -18,11 +18,9 @@ public class Block {
  }
  
  // what is this supposed to do? do we implement this into grid functions?
- void remove (Block b) {
-   if (b != null) {
+ void remove () {
      noStroke();
      fill(255);
-     rect(b.x, b.y,10,10);
-   }
+     rect(this.x, this.y,10,10);
  }
 }
