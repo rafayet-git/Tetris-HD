@@ -1,7 +1,10 @@
 public class Block {
- static float x,y;
- static color c;
+ float x,y;
+ color c;
  
+ public Block(float x_, float y_) {
+   this(x_,y_, color(0));
+ }
  public Block(float x_, float y_, color c_) {
    x = x_;
    y = y_;
@@ -14,7 +17,10 @@ public class Block {
    c = newColor;
  }
  
- void remove (int X, int Y) {
-   
+ void remove (Block b) {
+   if (b != null) {
+     fill(255);
+     rect(b.x, b.y,10,10);
+   }
  }
 }
