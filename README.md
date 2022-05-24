@@ -17,3 +17,5 @@ We are going to be making Tetris in Processing. You play Tetris by trying to fil
 
 ### Wing Jiang
 
+*5/23:*\
+Wing : I created the Block class. I added the constructor, as well as setColor() and remove().
