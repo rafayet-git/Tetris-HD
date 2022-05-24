@@ -1,7 +1,6 @@
 import java.util.*;
 public class Tetromino{
   ArrayDeque<Character> QueuedBlocks;
-  ArrayList<int[]> currentBlock;
   Block[][] nextBlock;
   //Block[][] holdBlock; I have no idea how hold works in tetris
   public Tetromino(){
@@ -9,7 +8,7 @@ public class Tetromino{
     refill();
     getNextBlock();
   }
-  void refill(){
+  void refill(){ // refill the block queue if empty
      Character[] blocks = {'I','O','T','S','L','Z','J'};
      List<Character> shuffler = Arrays.asList(blocks);
      Collections.shuffle(shuffler);
