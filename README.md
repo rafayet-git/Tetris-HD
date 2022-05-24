@@ -15,6 +15,9 @@ We are going to be making Tetris in Processing. You play Tetris by trying to fil
 
 ### Rafayet Hossain
 
+*5/23:*\
+I created the Grid  class, with the constructors and removeRow(row)
+
 ### Wing Jiang
 
 *5/23:*\

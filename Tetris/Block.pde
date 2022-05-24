@@ -17,6 +17,7 @@ public class Block {
    c = newColor;
  }
  
+ // what is this supposed to do? do we implement this into grid functions?
  void remove (Block b) {
    if (b != null) {
      noStroke();
