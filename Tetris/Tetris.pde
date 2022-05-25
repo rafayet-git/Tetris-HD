@@ -34,5 +34,22 @@ void draw() {
 }
 
 void keyPressed() {
-  
+  if (key == 'a') {
+    piece.moveLeft();
+  }
+  if (key == 'd') {
+    piece.moveRigth();
+  }
+  if (key == ' ') {
+    piece.dropDown();
+  }
+  if (key == 'w') {
+    piece.rotateCounter();
+  }
+  if (key == 's') {
+    piece.rotateClockwise();
+  }
+  //if (key == 'p') {
+  //  piece.pause();
+  //}
 }
