@@ -38,7 +38,7 @@ void keyPressed() {
     piece.moveLeft();
   }
   if (key == 'd') {
-    piece.moveRigth();
+    piece.moveRight();
   }
   if (key == ' ') {
     piece.dropDown();
