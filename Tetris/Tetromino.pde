@@ -5,6 +5,7 @@ public class Tetromino{
   //Block[][] holdBlock; I have no idea how hold works in tetris
   public Tetromino(){
     nextBlock = new Block[4][4];
+    QueuedBlocks = new ArrayDeque<Character>();
     refill();
     getNextBlock();
   }
@@ -12,9 +13,7 @@ public class Tetromino{
      Character[] blocks = {'I','O','T','S','L','Z','J'};
      List<Character> shuffler = Arrays.asList(blocks);
      Collections.shuffle(shuffler);
-     while (shuffler.size()>0){
-        QueuedBlocks.addLast(shuffler.remove(0)); 
-     }
+     QueuedBlocks.add(new Character('4')); 
   }
   void getNextBlock(){
     if (QueuedBlocks.size() == 1) refill();
