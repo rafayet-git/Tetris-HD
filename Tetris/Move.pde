@@ -1,21 +1,20 @@
 public class move{
-  Tetomino piece;
-  int x,y;
+  Tetromino piece;
   Block b;
   
   void moveLeft() {
     if (piece.getPos() > 0) {
-      x -= 1;
+      piece.posX -= 1;
     }
   }
   void moveRight() {
     if (piece.getPos() < 10) {
-      x += 1;
+      piece.posX += 1;
     }
   }
   void moveDown() {
     if (!map.canLockIn()) {
-      y += 1;
+      piece.posY += 1;
     }
   }
   void rotateClockwise() {
@@ -26,6 +25,6 @@ public class move{
   }
   
   void dropDown() {
-    y += 5;
+    piece.posY += 5;
   }
 }
