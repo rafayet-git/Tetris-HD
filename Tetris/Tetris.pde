@@ -28,7 +28,9 @@ void draw() {
   if (lose) {
     noStroke();
     fill(255);
-    rect(100,100
+    rect(100,100, 100, 20);
+    text("Game Over!", 105,105);
+  }
 }
 
 void keyPressed() {
