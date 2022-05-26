@@ -20,7 +20,7 @@ void draw() {
       drawGrid(map.grid);
   //  if (notLose) {
   //    if (delay == 0) {
-  //      //piece.moveDown();
+          //pieces.moveDown();
   //      delay += 60;
   //    }
   //    if (delay > 0) {
@@ -37,23 +37,23 @@ void draw() {
 
 
 void keyPressed() { // use switch statement lol
-  //if (key == 'a') {
-  //  piece.moveLeft();
-  //}
+  if (key == 'a') {
+    pieces.moveLeft();
+  }
   //if (key == 'd') {
-  //  piece.moveRight();
+  //  pieces.moveRight();
   //}
   //if (key == ' ') {
-  //  piece.dropDown();
+  //  pieces.dropDown();
   //}
   //if (key == 'w') {
-  //  piece.rotateCounter();
+  //  pieces.rotateCounter();
   //}
   //if (key == 's') {
-  //  piece.rotateClockwise();
+  //  pieces.rotateClockwise();
   //}
   //if (key == 'p') {
-  //  piece.pause();
+      //pause();
   //}
 }
 
@@ -69,3 +69,20 @@ void drawGrid(Block[][] ary){
    }
   }
 }
+
+void moveLeft() {
+    if (x-1>0) {
+      x -= 1;
+    }
+  }
+  void moveRight() {
+    if (x<10) {
+      x += 1;
+    }
+  }
+  void moveDown() {
+    y += 1;
+  }
+  void dropDown() {
+    y += 3;
+  }
