@@ -15,9 +15,11 @@ public class Tetromino{
      Character[] blocks = {'I','O','T','S','L','Z','J'};
      List<Character> shuffler = Arrays.asList(blocks);
      Collections.shuffle(shuffler);
-     QueuedBlocks.add(new Character('4')); 
+     for(int i = 0; i < shuffler.size();i++){
+       QueuedBlocks.add(shuffler.get(i));  
+     }
   }
-  void getNextBlock(){
+  void getNextBlock(){ // do grid.add before this
     for(Block[] temp : nextBlock){
       Arrays.fill(temp, null);
     }
@@ -60,18 +62,33 @@ public class Tetromino{
     nextBlock[2][1] = new Block(color(255,247,0));
   }
   void makeT(){
-    
+    nextBlock[3][0] = new Block(color(255, 0, 204));
+    nextBlock[3][1] = new Block(color(255, 0, 204));
+    nextBlock[3][2] = new Block(color(255, 0, 204));
+    nextBlock[2][1] = new Block(color(255, 0, 204));
   }
   void makeS(){
-    
+    nextBlock[3][0] = new Block(color(3, 255, 3));
+    nextBlock[3][1] = new Block(color(3, 255, 3));
+    nextBlock[2][1] = new Block(color(3, 255, 3));
+    nextBlock[2][2] = new Block(color(3, 255, 3));
   }
   void makeL(){
-    
+    nextBlock[3][0] = new Block(color(255, 175, 3));
+    nextBlock[3][1] = new Block(color(255, 175, 3));
+    nextBlock[3][2] = new Block(color(255, 175, 3));
+    nextBlock[2][2] = new Block(color(255, 175, 3));
   }
   void makeZ(){
-    
+    nextBlock[2][0] = new Block(color(255, 3, 53));
+    nextBlock[2][1] = new Block(color(255, 3, 53));
+    nextBlock[3][1] = new Block(color(255, 3, 53));
+    nextBlock[3][2] = new Block(color(255, 3, 53));
   }
   void makeJ(){
-    
+    nextBlock[2][0] = new Block(color(192, 3, 255));
+    nextBlock[3][0] = new Block(color(192, 3, 255));
+    nextBlock[3][1] = new Block(color(192, 3, 255));
+    nextBlock[3][2] = new Block(color(192, 3, 255));
   }
 }
