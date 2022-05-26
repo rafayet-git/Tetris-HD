@@ -22,7 +22,6 @@ public class move{
     
   }
   void rotateCounter() {
-    rotate(-PI/2.0);
   }
   
   void dropDown() {

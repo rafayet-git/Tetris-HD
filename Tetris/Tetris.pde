@@ -7,7 +7,7 @@ boolean notLose = false;
 int delay;
 
 void setup() {
-  size(300,500);
+  size(200,400);
   map = new Grid();
   pieces = new Tetromino();
   map.add(pieces.nextBlock);
