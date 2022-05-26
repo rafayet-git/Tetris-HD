@@ -13,9 +13,11 @@ public class Block {
     c = newColor;
   }
   
+  //returns the col position of block
   int getPosX() {
     return x;
   }
+  //retuns the row position of block
   int getPosY() {
    return y; 
   }

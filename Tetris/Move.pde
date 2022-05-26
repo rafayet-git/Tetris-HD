@@ -13,18 +13,18 @@ public class move{
       b.x += 1;
     }
   }
-  void moveDown() {
-    if (!map.canLockIn()) {
-      b.y += 1;
-    }
-  }
+  //void moveDown() {
+  //  if (!map.canLockIn()) {
+  //    b.y += 1;
+  //  }
+  //}
   void rotateClockwise() {
     
   }
   void rotateCounter() {
   }
-  
+  //blocks drop down at a faster rate
   void dropDown() {
-    b.y += 5;
+    b.y += 3;
   }
 }

@@ -38,5 +38,7 @@ public class Grid{
     }
   }
   
-  
+  //boolean canLockIn() {
+    
+  //}
 }
