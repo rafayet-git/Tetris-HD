@@ -3,8 +3,10 @@ public class Grid{
   int h;
   int w;
   Block[][] grid;
+  int[][] currentBlockxy;
   
   public Grid(int row, int col, int size_){ 
+    currentBlockxy = new int[4][2];
     h = row+4;
     w = col;
     size =size_;
@@ -14,16 +16,22 @@ public class Grid{
     this(20,10, 20); 
   }
   void add(Block[][] next){ // for use with tetromino nextblock
+    int count = 0;
     for (int i=0; i<4;i++){
      for(int j=0;j<4;j++){
        grid[i][(w/2)-2+j] = next[i][j];
-       if (grid[i][(w/2)-2+j] != null)grid[i][(w/2)-2+j].isCurrent = true;
+       if (grid[i][(w/2)-2+j] != null){
+         grid[i][(w/2)-2+j].isCurrent = true;
+         currentBlockxy[count][0] = i;
+         currentBlockxy[count][1] = (w/2)-2+j;
+         count++;
+       }
      }
     }
   }
   void removeRow(int row){
     for (int i = 0; i < grid[row].length;i++){ // make them white for a small time
-      grid[row][i].c = color(255);
+      grid[row][i] = new Block(0,0,color(255));
     }
     draw();
     delay(100);
@@ -38,4 +46,13 @@ public class Grid{
     }
   }
   
+  boolean canLockIn() {
+    for (int i = 0; i<4;i++){
+      if (currentBlockxy[i][0]+1==grid.length) return true;
+      if (grid[currentBlockxy[i][0]+1][currentBlockxy[i][1]] != null && grid[currentBlockxy[i][0]+1][currentBlockxy[i][1]].isCurrent == false){
+        return true;
+      }
+    }
+    return false;
+  }
 }
