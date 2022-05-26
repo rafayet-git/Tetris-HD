@@ -8,32 +8,48 @@ boolean notLose = false;
 int delay;
 
 void setup() {
-  size(500,500);
-  map = new Grid();
-  nextPiece = new Tetromino();
+  size(300,500);
 }
 
 void draw() {
-  //background(255);
-  //if (map != null) {
-  //  map.drawGrid();
-  //  if (notLose) {
-  //    if (delay == 0) {
-  //      piece.moveDown();
-  //      delay += 60;
-  //    }
-  //    if (delay > 0) {
-  //      delay--;
-  //    }
-  //  }
-  //}
-  //if (lose) {
-  //  noStroke();
-  //  fill(255);
-  //  rect(100,100);
-  //}
+  background(255);
+  if (map != null) {
+    map.drawGrid();
+    if (notLose) {
+      if (delay == 0) {
+        piece.moveDown();
+        delay += 60;
+      }
+      if (delay > 0) {
+        delay--;
+      }
+    }
+  }
+  if (lose) {
+    noStroke();
+    fill(255);
+    rect(100,100, 100, 20);
+    text("Game Over!", 105,105);
+  }
 }
 
-void keyPressed(){
-  
+void keyPressed() {
+  if (key == 'a') {
+    piece.moveLeft();
+  }
+  if (key == 'd') {
+    piece.moveRight();
+  }
+  if (key == ' ') {
+    piece.dropDown();
+  }
+  if (key == 'w') {
+    piece.rotateCounter();
+  }
+  if (key == 's') {
+    piece.rotateClockwise();
+  }
+  //if (key == 'p') {
+  //  piece.pause();
+  //}
 }
