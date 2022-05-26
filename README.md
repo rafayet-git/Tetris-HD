@@ -28,3 +28,9 @@ I worked on adding shapes for each tetromino, wrote the draw grid function and u
 
 *5/23:*\
 I created the Block class. I added the constructor, as well as setColor() and remove().
+
+*5/24:*\
+I created the Move class. I added the methods to move and fixed Block class.
+
+*5/25:*\
+I started on the setup for Tetris class. I added the delay for block ticks and added keyPressed. 
