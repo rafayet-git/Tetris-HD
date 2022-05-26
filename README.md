@@ -21,6 +21,9 @@ I created the Grid  class, with the constructors and removeRow(row)
 *5/24:*\
 I worked on the Tetromino class, added the private variables and constructors as well as refill and getNextBlock
 
+*5/25:*\
+I worked on adding shapes for each tetromino, wrote the draw grid function and updated some stuff on block
+
 ### Wing Jiang
 
 *5/23:*\
