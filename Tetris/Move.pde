@@ -1,31 +1,30 @@
-public class move{
-  Tetomino piece;
-  int x,y;
-  Block b;
+//public class move{
+//  Tetromino piece;
+//  Block b;
   
-  void moveLeft() {
-    if (piece.getPos() > 0) {
-      x -= 1;
-    }
-  }
-  void moveRight() {
-    if (piece.getPos() < 10) {
-      x += 1;
-    }
-  }
-  void moveDown() {
-    if (!map.canLockIn()) {
-      y += 1;
-    }
-  }
-  void rotateClockwise() {
+//  void moveLeft() {
+//    if (b.getPosX() > 0) {
+//      piece.nextBlock
+//    }
+//  }
+//  void moveRight() {
+//    if (b.getPosX() < 10) {
+//      b.x += 1;
+//    }
+//  }
+//  void moveDown() {
+//    //if (!map.canLockIn()) {
+//    //  b.y += 1;
+//    //}
+//    b.y += 1;
+//  }
+//  void rotateClockwise() {
     
-  }
-  void rotateCounter() {
-    rotate(-PI/2.0);
-  }
-  
-  void dropDown() {
-    y += 5;
-  }
-}
+//  }
+//  void rotateCounter() {
+//  }
+//  //blocks drop down at a faster rate
+//  void dropDown() {
+//    b.y += 3;
+//  }
+//}
