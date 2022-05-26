@@ -90,5 +90,4 @@ public class Tetromino{
     nextBlock[3][1] = new Block(3,1,color(192, 3, 255));
     nextBlock[3][2] = new Block(3,2,color(192, 3, 255));
   }
-  
 }
