@@ -31,7 +31,7 @@ public class Grid{
   }
   void removeRow(int row){
     for (int i = 0; i < grid[row].length;i++){ // make them white for a small time
-      grid[row][i].c = color(255);
+      grid[row][i] = new Block(0,0,color(255));
     }
     draw();
     delay(100);
@@ -46,7 +46,13 @@ public class Grid{
     }
   }
   
-  //boolean canLockIn() {
-    
-  //}
+  boolean canLockIn() {
+    for (int i = 0; i<4;i++){
+      if (currentBlockxy[i][0]+1==grid.length) return true;
+      if (grid[currentBlockxy[i][0]+1][currentBlockxy[i][1]] != null && grid[currentBlockxy[i][0]+1][currentBlockxy[i][1]].isCurrent == false){
+        return true;
+      }
+    }
+    return false;
+  }
 }
