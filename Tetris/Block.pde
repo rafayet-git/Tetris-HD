@@ -2,9 +2,11 @@ public class Block {
   int x, y;
   boolean isCurrent;
   color c;
-  public Block(color c_) {
+  public Block(int x_, int y_, color c_) {
     isCurrent = false;
     c = c_;
+    x = x_;
+    y = y_;
   }
 
   void setColor(color newColor) {
@@ -12,11 +14,9 @@ public class Block {
   }
   
   int getPosX() {
-    int x=0;
-    for (int i=0;i<grid.length;i++) {
-      for (int j=0;j<grid[i].length;j++) {
-        if (
-      }
-    }
+    return x;
+  }
+  int getPosY() {
+   return y; 
   }
 }

@@ -4,18 +4,18 @@ public class move{
   Block b;
   
   void moveLeft() {
-    if (piece.getPos() > 0) {
-      piece.posX -= 1;
+    if (b.getPosX() > 0) {
+      b.x -= 1;
     }
   }
   void moveRight() {
-    if (piece.getPos() < 10) {
-      piece.posX += 1;
+    if (b.getPosX() < 10) {
+      b.x += 1;
     }
   }
   void moveDown() {
     if (!map.canLockIn()) {
-      piece.posY += 1;
+      b.y += 1;
     }
   }
   void rotateClockwise() {
@@ -25,6 +25,6 @@ public class move{
   }
   
   void dropDown() {
-    piece.posY += 5;
+    b.y += 5;
   }
 }
