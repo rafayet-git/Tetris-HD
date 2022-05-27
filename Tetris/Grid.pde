@@ -67,10 +67,10 @@ public class Grid {
         grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = null;
       }
       for (int i = 0; i<4; i++) {
-        if (currentBlockxy[i][1]-1 > 0) {
+        if (currentBlockxy[i][1]-1 >= 0) {
           grid[currentBlockxy[i][0]][currentBlockxy[i][1]-1] = new Block(col);
           grid[currentBlockxy[i][0]][currentBlockxy[i][1]-1].isCurrent = true;
-          //currentBlockxy[i][0]++;
+          currentBlockxy[i][1]--;
         }
       }
     }
@@ -82,10 +82,10 @@ public class Grid {
         grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = null;
       }
       for (int i = 0; i<4; i++) {
-        if (currentBlockxy[i][1]-1 > 0) {
+        if (currentBlockxy[i][1]+1 < 10) {
           grid[currentBlockxy[i][0]][currentBlockxy[i][1]+1] = new Block(col);
           grid[currentBlockxy[i][0]][currentBlockxy[i][1]+1].isCurrent = true;
-          //currentBlockxy[i][0]++;
+          currentBlockxy[i][1]++;
         }
       }
     }
