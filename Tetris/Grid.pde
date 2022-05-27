@@ -55,4 +55,23 @@ public class Grid{
     }
     return false;
   }
+  void moveLeft() {
+    if (x-1>0) {
+      x -= 1;
+    }
+  }
+  void moveRight() {
+    if (x<10) {
+      x += 1;
+    }
+  }
+  void moveDown() {
+    y += 1;
+  }
+  void dropDown() {
+    y += 3;
+  }
+  void rotateCounter(){
+    
+  }
 }

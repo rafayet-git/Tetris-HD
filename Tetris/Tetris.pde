@@ -38,26 +38,26 @@ void draw() {
 
 
 void keyPressed() { // use switch statement lol
-  map.add(pieces.nextBlock);
-  pieces.getNextBlock(); 
-  if (key == 'a') {
-    pieces.moveLeft();
+  switch (key){
+    case 'a':
+      map.moveLeft();
+      break;
+    case 'd':
+      map.moveRight();
+      break;
+    case ' ':
+      map.dropDown();
+      break;
+    case 'w':
+      map.rotateCounter();
+      break;
+    case 's':
+      map.moveDown();
+      break;
+    case 'p':
+      pause();
+      break;
   }
-  //if (key == 'd') {
-  //  pieces.moveRight();
-  //}
-  //if (key == ' ') {
-  //  pieces.dropDown();
-  //}
-  //if (key == 'w') {
-  //  pieces.rotateCounter();
-  //}
-  //if (key == 's') {
-  //  pieces.rotateClockwise();
-  //}
-  //if (key == 'p') {
-      //pause();
-  //}
 }
 
 void drawGrid(Block[][] ary, int x, int y){
@@ -73,52 +73,5 @@ void drawGrid(Block[][] ary, int x, int y){
   }
 }
 
-void moveLeft() {
-    if (x-1>0) {
-      x -= 1;
-    }
-  }
-  void moveRight() {
-    if (x<10) {
-      x += 1;
-    }
-  }
-  void moveDown() {
-    y += 1;
-  }
-  void dropDown() {
-    y += 3;
-  }
-  
 
   
-//public class move{
-//  Tetromino piece;
-//  Block b;
-  
-//  void moveLeft() {
-//    if (b.getPosX() > 0) {
-//      piece.nextBlock
-//    }
-//  }
-//  void moveRight() {
-//    if (b.getPosX() < 10) {
-//      b.x += 1;
-//    }
-//  }
-//  void moveDown() {
-//    //if (!map.canLockIn()) {
-//    //  b.y += 1;
-//    //}
-//    b.y += 1;
-//  }
-//  void rotateClockwise() {
-    
-//  }
-//  void rotateCounter() {
-//  }
-//  //blocks drop down at a faster rate
-//  void dropDown() {
-//    b.y += 3;
-//  }
-//}
