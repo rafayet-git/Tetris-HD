@@ -3,8 +3,7 @@ int score;
 int mode;
 Tetromino pieces;
 boolean lose = false;
-boolean notLose = false;
-int delay;
+float delay;
 
 void setup() {
   size(400,500);
@@ -12,33 +11,33 @@ void setup() {
   pieces = new Tetromino();
   map.add(pieces.nextBlock);
   pieces.getNextBlock();
+  score = 0;
+  delay = 60;
 }
 
 void draw() {
-  background(255);
-  drawGrid(map.grid, 0, 0);
-  drawGrid(pieces.nextBlock, 220, 0);
-  if (map.canLockIn()){
-    map.clearCurrent();
-    map.add(pieces.nextBlock);
-    pieces.getNextBlock();
+  if (!lose){
+    background(255);
+    fill(0);
+    text("Score: " + score, 220, 100);
+    drawGrid(map.grid, 0, 0);
+    drawGrid(pieces.nextBlock, 220, 0);
+    if (map.canLockIn()){
+      map.clearCurrent();
+      if (map.checkLost()) lose = true;
+      map.add(pieces.nextBlock);
+      pieces.getNextBlock();
+    }    
+    if(delay == 0){
+      delay = 60;
+      map.moveDown();
+    }delay--;
+  } else {
+    fill(255,0,0);
+    text("Game Over!", 220,115);
+    text("Press Backspace to restart", 220,125);
   }
-  //  if (notLose) {
-  //    if (delay == 0) {
-          //pieces.moveDown();
-  //      delay += 60;
-  //    }
-  //    if (delay > 0) {
-  //      delay--;
-  //    }
-  //  }
-  //}
-  //if (lose) {
-  //  noStroke();
-  //  fill(255);
-  //  rect(100,100, 100, 20);
-  //  text("Game Over!", 105,105);
-  }
+}
 
 
 void keyPressed() { // use switch statement lol
@@ -54,6 +53,7 @@ void keyPressed() { // use switch statement lol
       break;
     case 'w':
       map.rotateCounter();
+      map.removeRow(22);
       break;
     case 's':
       map.moveDown();
@@ -61,6 +61,12 @@ void keyPressed() { // use switch statement lol
     case 'p':
       pause();
       break;
+    case 8:
+      score = 0;
+      map.clearTable();
+      map.add(pieces.nextBlock);
+      pieces.getNextBlock();
+      lose = false;
   }
 }
 
