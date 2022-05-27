@@ -20,6 +20,12 @@ public class Grid{
       grid[currentBlockxy[i][0]][currentBlockxy[i][1]].isCurrent = false;
     }   
   }
+  boolean checkLost(){
+    for (int i = 0;i<w;i++){
+      if (grid[3][i] != null && grid[3][i].isCurrent == false) return true;
+    }
+    return false;
+  }
   void add(Block[][] next){ // for use with tetromino nextblock
     int count = 0;
     for (int i=0; i<4;i++){
@@ -49,6 +55,9 @@ public class Grid{
           grid[i][j] = null;
        }
     }
+    for(int i = 0; i<4;i++){
+      currentBlockxy[i][0]++;
+    }
   }
   
   boolean canLockIn() {
@@ -59,6 +68,13 @@ public class Grid{
       }
     }
     return false;
+  }
+  void clearTable(){
+   for(int i = 0; i < h; i++){
+      for (int j = 0; j<w;j++){
+         grid[i][j] = null; 
+      }
+   }
   }
   void moveLeft() {
 
