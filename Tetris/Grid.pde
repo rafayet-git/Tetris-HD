@@ -4,9 +4,11 @@ public class Grid{
   int w;
   Block[][] grid;
   int[][] currentBlockxy;
+  int[][] previewBlock;
   
   public Grid(int row, int col, int size_){ 
     currentBlockxy = new int[4][2];
+    previewBlock = new int[4][2];
     h = row+4;
     w = col;
     size =size_;
@@ -42,7 +44,7 @@ public class Grid{
   }
   void removeRow(int row){
     for (int i = 0; i < grid[row].length;i++){ // make them white for a small time
-      grid[row][i] = new Block(0,0,color(255));
+      grid[row][i] = new Block(color(255));
     }
     draw();
     delay(100);
