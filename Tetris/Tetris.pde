@@ -18,6 +18,8 @@ void setup() {
 void draw() {
   if (!lose){
     background(255);
+    fill(0);
+    text("Score: " + score, 220, 100);
     drawGrid(map.grid, 0, 0);
     drawGrid(pieces.nextBlock, 220, 0);
     if (map.canLockIn()){
@@ -30,24 +32,12 @@ void draw() {
       delay = 60;
       map.moveDown();
     }delay--;
+  } else {
+    fill(255,0,0);
+    text("Game Over!", 220,115);
+    text("Press Backspace to restart", 220,125);
   }
-
-  //  if (notLose) {
-  //    if (delay == 0) {
-          //pieces.moveDown();
-  //      delay += 60;
-  //    }
-  //    if (delay > 0) {
-  //      delay--;
-  //    }
-  //  }
-  //}
-  //if (lose) {
-  //  noStroke();
-  //  fill(255);
-  //  rect(100,100, 100, 20);
-  //  text("Game Over!", 105,105);
-  }
+}
 
 
 void keyPressed() { // use switch statement lol
