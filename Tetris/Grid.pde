@@ -71,6 +71,18 @@ public class Grid{
     }
     return false;
   }
+  boolean canMoveLeft(){
+    for (int i = 0; i<4;i++){
+      if (currentBlockxy[i][0]+1==0) return false;
+      if (grid[currentBlockxy[i][0]][currentBlockxy[i][1]-1] != null && grid[currentBlockxy[i][0]][currentBlockxy[i][1]-1].isCurrent == false){
+        return false;
+      }
+    }
+    return true;
+  }
+  boolean canMoveRight(){
+    
+  }
   void clearTable(){
    for(int i = 0; i < h; i++){
       for (int j = 0; j<w;j++){
