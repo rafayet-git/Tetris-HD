@@ -24,6 +24,9 @@ I worked on the Tetromino class, added the private variables and constructors as
 *5/25:*\
 I worked on adding shapes for each tetromino, wrote the draw grid function and updated some stuff on block
 
+*5/26:*\
+I added a function canLockIn which can tell if a tetromino can be landed or not, i added drawGrid to display maps.
+
 ### Wing Jiang
 
 *5/23:*\

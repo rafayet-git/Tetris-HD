@@ -39,24 +39,31 @@ void draw() {
 
 
 void keyPressed() { // use switch statement lol
+<<<<<<< HEAD
   if (key == 'a') {
     moveLeft();
+=======
+  switch (key){
+    case 'a':
+      map.moveLeft();
+      break;
+    case 'd':
+      map.moveRight();
+      break;
+    case ' ':
+      map.dropDown();
+      break;
+    case 'w':
+      map.rotateCounter();
+      break;
+    case 's':
+      map.moveDown();
+      break;
+    case 'p':
+      pause();
+      break;
+>>>>>>> 4eb4505670c4814e6ba5a2cb7d22afc6b8ddf99f
   }
-  //if (key == 'd') {
-  //  pieces.moveRight();
-  //}
-  //if (key == ' ') {
-  //  pieces.dropDown();
-  //}
-  //if (key == 'w') {
-  //  pieces.rotateCounter();
-  //}
-  //if (key == 's') {
-  //  pieces.rotateClockwise();
-  //}
-  //if (key == 'p') {
-      //pause();
-  //}
 }
 
 void drawGrid(Block[][] ary){
@@ -72,19 +79,5 @@ void drawGrid(Block[][] ary){
   }
 }
 
-void moveLeft() {
-    if (x-1>0) {
-      x -= 1;
-    }
-  }
-  void moveRight() {
-    if (x<10) {
-      x += 1;
-    }
-  }
-  void moveDown() {
-    y += 1;
-  }
-  void dropDown() {
-    y += 3;
-  }
+
+  
