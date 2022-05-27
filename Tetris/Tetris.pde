@@ -7,7 +7,7 @@ boolean notLose = false;
 int delay;
 
 void setup() {
-  size(400,400);
+  size(400,500);
   map = new Grid();
   pieces = new Tetromino();
   map.add(pieces.nextBlock);
@@ -16,9 +16,13 @@ void setup() {
 
 void draw() {
   background(255);
-  //if (map != null) {
-      drawGrid(map.grid, 0, 0);
-      drawGrid(pieces.nextBlock, 220, 0);
+  drawGrid(map.grid, 0, 0);
+  drawGrid(pieces.nextBlock, 220, 0);
+  if (map.canLockIn()){
+    map.clearCurrent();
+    map.add(pieces.nextBlock);
+    pieces.getNextBlock();
+  }
   //  if (notLose) {
   //    if (delay == 0) {
           //pieces.moveDown();
