@@ -5,32 +5,19 @@ Tetromino pieces;
 boolean lose = false;
 boolean notLose = false;
 int delay;
-int x = map.w/2;
-int y = 0;
 
 void setup() {
-<<<<<<< HEAD
   size(200,400);
-=======
-  size(400,500);
->>>>>>> 5812babc3ada64947e36938aa4f1bb444765d12b
   map = new Grid();
-  pieces = new Tetromino();
+  pieces = new Tetromino(map);
   map.add(pieces.nextBlock);
   pieces.getNextBlock();
 }
 
 void draw() {
   background(255);
-
-  drawGrid(map.grid, 0, 0);
-  drawGrid(pieces.nextBlock, 220, 0);
-  if (map.canLockIn()){
-    map.clearCurrent();
-    map.add(pieces.nextBlock);
-    pieces.getNextBlock();
-  }
-
+  //if (map != null) {
+      drawGrid(map.grid);
   //  if (notLose) {
   //    if (delay == 0) {
           //pieces.moveDown();
@@ -50,27 +37,25 @@ void draw() {
 
 
 void keyPressed() { // use switch statement lol
-
   switch (key){
     case 'a':
-      map.moveLeft();
+      pieces.moveLeft();
       break;
-    case 'd':
-      map.moveRight();
-      break;
-    case ' ':
-      map.dropDown();
-      break;
-    case 'w':
-      map.rotateCounter();
-      break;
-    case 's':
-      map.moveDown();
-      break;
-    case 'p':
-      pause();
-      break;
-
+    //case 'd':
+    //  pieces.moveRight();
+    //  break;
+    //case ' ':
+    //  pieces.dropDown();
+    //  break;
+    //case 'w':
+    //  pieces.rotateCounter();
+    //  break;
+    //case 's':
+    //  pieces.moveDown();
+    //  break;
+    //case 'p':
+    //  pause();
+    //  break;
   }
 }
 

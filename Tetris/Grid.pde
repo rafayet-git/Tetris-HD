@@ -15,6 +15,11 @@ public class Grid{
   public Grid(){ // Standard 10x20 grid
     this(20,10, 20); 
   }
+  void clearCurrent(){
+    for(int i = 0; i<4;i++){
+      grid[currentBlockxy[i][0]][currentBlockxy[i][1]].isCurrent = false;
+    }   
+  }
   void add(Block[][] next){ // for use with tetromino nextblock
     int count = 0;
     for (int i=0; i<4;i++){
@@ -56,20 +61,24 @@ public class Grid{
     return false;
   }
   void moveLeft() {
-    if (x-1>0) {
-      x -= 1;
-    }
+
   }
   void moveRight() {
-    if (x<10) {
-      x += 1;
-    }
   }
   void moveDown() {
-    y += 1;
+    if (!canLockIn()){
+        color col = grid[currentBlockxy[0][0]][currentBlockxy[0][1]].c;    
+        for(int i = 0; i<4;i++){
+          grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = null;
+        }
+        for(int i = 0; i<4;i++){
+          grid[currentBlockxy[i][0]+1][currentBlockxy[i][1]] = new Block(col);
+          grid[currentBlockxy[i][0]+1][currentBlockxy[i][1]].isCurrent = true;
+          currentBlockxy[i][0]++;
+        } 
+    }
   }
   void dropDown() {
-    y += 3;
   }
   void rotateCounter(){
     
