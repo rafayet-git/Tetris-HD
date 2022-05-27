@@ -76,3 +76,6 @@ void drawGrid(Block[][] ary, int x, int y){
    }
   }
 }
+
+
+  
