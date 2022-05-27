@@ -8,6 +8,9 @@ public class Block {
     x = x_;
     y = y_;
   }
+  public Block(color c_){
+   this(0,0,c_); 
+  }
 
   void setColor(color newColor) {
     c = newColor;

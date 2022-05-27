@@ -7,7 +7,7 @@ boolean notLose = false;
 int delay;
 
 void setup() {
-  size(200,400);
+  size(400,500);
   map = new Grid();
   pieces = new Tetromino();
   map.add(pieces.nextBlock);
@@ -16,8 +16,13 @@ void setup() {
 
 void draw() {
   background(255);
-  //if (map != null) {
-      drawGrid(map.grid);
+  drawGrid(map.grid, 0, 0);
+  drawGrid(pieces.nextBlock, 220, 0);
+  if (map.canLockIn()){
+    map.clearCurrent();
+    map.add(pieces.nextBlock);
+    pieces.getNextBlock();
+  }
   //  if (notLose) {
   //    if (delay == 0) {
           //pieces.moveDown();
@@ -37,27 +42,29 @@ void draw() {
 
 
 void keyPressed() { // use switch statement lol
-  if (key == 'a') {
-    pieces.moveLeft();
+  switch (key){
+    case 'a':
+      map.moveLeft();
+      break;
+    case 'd':
+      map.moveRight();
+      break;
+    case ' ':
+      map.dropDown();
+      break;
+    case 'w':
+      map.rotateCounter();
+      break;
+    case 's':
+      map.moveDown();
+      break;
+    case 'p':
+      pause();
+      break;
   }
-  //if (key == 'd') {
-  //  pieces.moveRight();
-  //}
-  //if (key == ' ') {
-  //  pieces.dropDown();
-  //}
-  //if (key == 'w') {
-  //  pieces.rotateCounter();
-  //}
-  //if (key == 's') {
-  //  pieces.rotateClockwise();
-  //}
-  //if (key == 'p') {
-      //pause();
-  //}
 }
 
-void drawGrid(Block[][] ary){
+void drawGrid(Block[][] ary, int x, int y){
   for(int i = 0; i < ary.length;i++){
    for(int j = 0; j<ary[0].length;j++){
     if (ary[i][j] == null){
@@ -65,24 +72,10 @@ void drawGrid(Block[][] ary){
         fill(184, 73, 81);
       } else {fill(150);}
     } else {fill(ary[i][j].c);}
-    rect(j*map.size,i*map.size,map.size,map.size,5);
+    rect(j*map.size+x,i*map.size+y,map.size,map.size,5);
    }
   }
 }
 
-void moveLeft() {
-    if (x-1>0) {
-      x -= 1;
-    }
-  }
-  void moveRight() {
-    if (x<10) {
-      x += 1;
-    }
-  }
-  void moveDown() {
-    y += 1;
-  }
-  void dropDown() {
-    y += 3;
-  }
+
+  
