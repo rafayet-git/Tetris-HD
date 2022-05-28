@@ -27,11 +27,17 @@ void draw() {
       if (map.checkLost()) lose = true;
       map.add(pieces.nextBlock);
       pieces.getNextBlock();
-    }    
+    }
+    for (int i=0;i<20;) {
+      if (map.fullRow(i)) {
+        map.removeRow(i);
+      }
+    }
     if(delay == 0){
       delay = 60;
       map.moveDown();
-    }delay--;
+    }
+    delay--;
   } else {
     fill(255,0,0);
     text("Game Over!", 220,115);
@@ -48,9 +54,9 @@ void keyPressed() { // use switch statement lol
     case 'd':
       map.moveRight();
       break;
-    case ' ':
-      map.dropDown();
-      break;
+    //case ' ':
+    //  map.dropDown();
+    //  break;
     case 'w':
       map.rotateCounter();
       map.removeRow(22);
