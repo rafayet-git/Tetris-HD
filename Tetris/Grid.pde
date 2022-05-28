@@ -97,7 +97,7 @@ public class Grid{
   }
   boolean canMoveRight(){
     for (int i = 0; i<4;i++){
-      if (currentBlockxy[i][0]+1==w) return false;
+      if (currentBlockxy[i][1]+1==w) return false;
       if (grid[currentBlockxy[i][0]][currentBlockxy[i][1]+1] != null && grid[currentBlockxy[i][0]][currentBlockxy[i][1]+1].isCurrent == false){
         return false;
       }
