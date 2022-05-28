@@ -4,9 +4,11 @@ public class Grid{
   int w;
   Block[][] grid;
   int[][] currentBlockxy;
+  int[][] previewBlock;
   
   public Grid(int row, int col, int size_){ 
     currentBlockxy = new int[4][2];
+    previewBlock = new int[4][2];
     h = row+4;
     w = col;
     size =size_;
@@ -14,6 +16,17 @@ public class Grid{
   }
   public Grid(){ // Standard 10x20 grid
     this(20,10, 20); 
+  }
+  void clearCurrent(){
+    for(int i = 0; i<4;i++){
+      grid[currentBlockxy[i][0]][currentBlockxy[i][1]].isCurrent = false;
+    }   
+  }
+  boolean checkLost(){
+    for (int i = 0;i<w;i++){
+      if (grid[3][i] != null && grid[3][i].isCurrent == false) return true;
+    }
+    return false;
   }
   void add(Block[][] next){ // for use with tetromino nextblock
     int count = 0;
@@ -31,7 +44,7 @@ public class Grid{
   }
   void removeRow(int row){
     for (int i = 0; i < grid[row].length;i++){ // make them white for a small time
-      grid[row][i] = new Block(0,0,color(255));
+      grid[row][i] = new Block(color(255));
     }
     draw();
     delay(100);
@@ -44,6 +57,9 @@ public class Grid{
           grid[i][j] = null;
        }
     }
+    for(int i = 0; i<4;i++){
+      currentBlockxy[i][0]++;
+    }
   }
   
   boolean canLockIn() {
@@ -54,5 +70,53 @@ public class Grid{
       }
     }
     return false;
+  }
+  boolean canMoveLeft(){
+    for (int i = 0; i<4;i++){
+      if (currentBlockxy[i][1]==0) return false;
+      if (grid[currentBlockxy[i][0]][currentBlockxy[i][1]-1] != null && grid[currentBlockxy[i][0]][currentBlockxy[i][1]-1].isCurrent == false){
+        return false;
+      }
+    }
+    return true;
+  }
+  boolean canMoveRight(){
+    for (int i = 0; i<4;i++){
+      if (currentBlockxy[i][0]+1==w) return false;
+      if (grid[currentBlockxy[i][0]][currentBlockxy[i][1]+1] != null && grid[currentBlockxy[i][0]][currentBlockxy[i][1]+1].isCurrent == false){
+        return false;
+      }
+    }
+    return true;
+  }
+  void clearTable(){
+   for(int i = 0; i < h; i++){
+      for (int j = 0; j<w;j++){
+         grid[i][j] = null; 
+      }
+   }
+  }
+  void moveLeft() {
+
+  }
+  void moveRight() {
+  }
+  void moveDown() {
+    if (!canLockIn()){
+        color col = grid[currentBlockxy[0][0]][currentBlockxy[0][1]].c;    
+        for(int i = 0; i<4;i++){
+          grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = null;
+        }
+        for(int i = 0; i<4;i++){
+          grid[currentBlockxy[i][0]+1][currentBlockxy[i][1]] = new Block(col);
+          grid[currentBlockxy[i][0]+1][currentBlockxy[i][1]].isCurrent = true;
+          currentBlockxy[i][0]++;
+        } 
+    }
+  }
+  void dropDown() {
+  }
+  void rotateCounter(){
+    
   }
 }

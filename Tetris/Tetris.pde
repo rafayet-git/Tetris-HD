@@ -3,61 +3,71 @@ int score;
 int mode;
 Tetromino pieces;
 boolean lose = false;
-boolean notLose = false;
-int delay;
+float delay;
 
 void setup() {
-  size(400,400);
+  size(400,500);
   map = new Grid();
   pieces = new Tetromino();
   map.add(pieces.nextBlock);
   pieces.getNextBlock();
+  score = 0;
+  delay = 60;
 }
 
 void draw() {
-  background(255);
-  //if (map != null) {
-      drawGrid(map.grid, 0, 0);
-      drawGrid(pieces.nextBlock, 220, 0);
-  //  if (notLose) {
-  //    if (delay == 0) {
-          //pieces.moveDown();
-  //      delay += 60;
-  //    }
-  //    if (delay > 0) {
-  //      delay--;
-  //    }
-  //  }
-  //}
-  //if (lose) {
-  //  noStroke();
-  //  fill(255);
-  //  rect(100,100, 100, 20);
-  //  text("Game Over!", 105,105);
+  if (!lose){
+    background(255);
+    fill(0);
+    text("Score: " + score, 220, 100);
+    drawGrid(map.grid, 0, 0);
+    drawGrid(pieces.nextBlock, 220, 0);
+    if (map.canLockIn()){
+      map.clearCurrent();
+      if (map.checkLost()) lose = true;
+      map.add(pieces.nextBlock);
+      pieces.getNextBlock();
+    }    
+    if(delay == 0){
+      delay = 60;
+      map.moveDown();
+    }delay--;
+  } else {
+    fill(255,0,0);
+    text("Game Over!", 220,115);
+    text("Press Backspace to restart", 220,125);
   }
+}
 
 
 void keyPressed() { // use switch statement lol
-  map.add(pieces.nextBlock);
-  pieces.getNextBlock(); 
-  if (key == 'a') {
-    pieces.moveLeft();
+  switch (key){
+    case 'a':
+      map.moveLeft();
+      break;
+    case 'd':
+      map.moveRight();
+      break;
+    case ' ':
+      map.dropDown();
+      break;
+    case 'w':
+      map.rotateCounter();
+      map.removeRow(22);
+      break;
+    case 's':
+      map.moveDown();
+      break;
+    case 'p':
+      pause();
+      break;
+    case 8:
+      score = 0;
+      map.clearTable();
+      map.add(pieces.nextBlock);
+      pieces.getNextBlock();
+      lose = false;
   }
-  //if (key == 'd') {
-  //  pieces.moveRight();
-  //}
-  //if (key == ' ') {
-  //  pieces.dropDown();
-  //}
-  //if (key == 'w') {
-  //  pieces.rotateCounter();
-  //}
-  //if (key == 's') {
-  //  pieces.rotateClockwise();
-  //}
-  //if (key == 'p') {
-      //pause();
-  //}
 }
 
 void drawGrid(Block[][] ary, int x, int y){
@@ -73,19 +83,5 @@ void drawGrid(Block[][] ary, int x, int y){
   }
 }
 
-void moveLeft() {
-    if (x-1>0) {
-      x -= 1;
-    }
-  }
-  void moveRight() {
-    if (x<10) {
-      x += 1;
-    }
-  }
-  void moveDown() {
-    y += 1;
-  }
-  void dropDown() {
-    y += 3;
-  }
+
+  
