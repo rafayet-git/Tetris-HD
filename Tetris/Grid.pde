@@ -4,7 +4,6 @@ public class Grid {
   int w;
   Block[][] grid;
   int[][] currentBlockxy;
-  int[][] previewBlock;
 
   public Grid(int row, int col, int size_) { 
     currentBlockxy = new int[4][2];
@@ -22,12 +21,6 @@ public class Grid {
       grid[currentBlockxy[i][0]][currentBlockxy[i][1]].isCurrent = false;
     }
   }
-  boolean checkLost() {
-    for (int i = 0; i<w; i++) {
-      if (grid[3][i] != null && grid[3][i].isCurrent == false) return true;
-    }
-    return false;
-  }
   void add(Block[][] next) { // for use with tetromino nextblock
     int count = 0;
     for (int i=0; i<4; i++) {
@@ -44,7 +37,7 @@ public class Grid {
   }
   void removeRow(int row) {
     for (int i = 0; i < grid[row].length; i++) { // make them white for a small time
-      grid[row][i] = new Block(color(255));
+      grid[row][i] = new Block(0, 0, color(255));
     }
     draw();
     delay(100);
@@ -56,9 +49,6 @@ public class Grid {
         grid[i+1][j] = grid[i][j];
         grid[i][j] = null;
       }
-    }
-    for (int i = 0; i<4; i++) {
-      currentBlockxy[i][0]++;
     }
   }
 
