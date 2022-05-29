@@ -24,17 +24,13 @@ void draw() {
     drawGrid(pieces.nextBlock, 220, 0);
     if (map.canLockIn()){
       map.clearCurrent();
+      map.removeFullRows();
       if (map.checkLost()) lose = true;
       map.add(pieces.nextBlock);
       pieces.getNextBlock();
     }
-    for (int i=0;i<20;) {
-      if (map.fullRow(i)) {
-        map.removeRow(i);
-      }
-    }
-    if(delay == 0){
-      delay = 60;
+    if(delay <= 0){
+      delay = 60 -  (pow(1.0009,score));
       map.moveDown();
     }
     delay--;
@@ -59,7 +55,6 @@ void keyPressed() { // use switch statement lol
     //  break;
     case 'w':
       map.rotateCounter();
-      map.removeRow(22);
       break;
     case 's':
       map.moveDown();
@@ -73,6 +68,7 @@ void keyPressed() { // use switch statement lol
       map.add(pieces.nextBlock);
       pieces.getNextBlock();
       lose = false;
+      break;
   }
 }
 
@@ -81,7 +77,7 @@ void drawGrid(Block[][] ary, int x, int y){
    for(int j = 0; j<ary[0].length;j++){
     if (ary[i][j] == null){
       if (i<4){
-        fill(184, 73, 81);
+        fill(#dd7e75);
       } else {fill(150);}
     } else {fill(ary[i][j].c);}
     rect(j*map.size+x,i*map.size+y,map.size,map.size,5);

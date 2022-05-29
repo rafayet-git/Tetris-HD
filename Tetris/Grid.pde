@@ -43,11 +43,6 @@ public class Grid{
     }
   }
   void removeRow(int row){
-    for (int i = 0; i < grid[row].length;i++){ // make them white for a small time
-      grid[row][i] = new Block(color(255));
-    }
-    draw();
-    delay(100);
     for (int i = 0; i < grid[row].length;i++){ // remove current row
       grid[row][i] = null;
     }
@@ -57,22 +52,28 @@ public class Grid{
           grid[i][j] = null;
        }
     }
-    for(int i = 0; i<4;i++){
-      currentBlockxy[i][0]++;
-    }
+    
   }
   //check if row is full
-  boolean fullRow(int row) {
-    for (int i=0;i<grid[row].length;) {
-      if (grid[row][i] != null) {
-        i++;
+  void removeFullRows() {
+    int amt = 0;
+    for(int i = 0; i < 4; i++){
+      boolean isFull = true;
+      for (int j = 0; j < w; j++){
+        if(grid[currentBlockxy[i][0]][j] == null){
+          isFull = false;
+          break;
+        }
       }
-      if (i==grid[row].length-1) {
-        return true;
+      if (isFull){
+        removeRow(currentBlockxy[i][0]);
+        i--;
+        amt++;
       }
     }
-    return false;
+    score += (100*pow(amt,2));
   }
+  
         
         
         
@@ -111,6 +112,7 @@ public class Grid{
       }
    }
   }
+
   void moveLeft() {
     if (canMoveLeft()) {
       color col = grid[currentBlockxy[0][0]][currentBlockxy[0][1]].c;    
@@ -155,6 +157,7 @@ public class Grid{
     }
   }
   //I dont think we need this because if we press 's' it already goes down faster
+  //Well shouldnt the drop down function automatically drop the block to the bottom?
   //void dropDown() {
   //  if (!canLockIn()) {
   //    color col = grid[currentBlockxy[0][0]][currentBlockxy[0][1]].c;    

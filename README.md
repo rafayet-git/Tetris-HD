@@ -27,6 +27,9 @@ I worked on adding shapes for each tetromino, wrote the draw grid function and u
 *5/26:*\
 I added a function canLockIn which can tell if a tetromino can be landed or not, i added drawGrid to display maps.
 
+*5/26:*\
+I made the block go down every 60 seconds, display for score and game over case.
+
 ### Wing Jiang
 
 *5/23:*\
