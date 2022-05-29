@@ -13,40 +13,45 @@ void setup() {
   pieces.getNextBlock();
   score = 0;
   delay = 60;
+  map.clearPreview();
+  map.makePreview();
+  fill(255);
+
 }
 
 void draw() {
   if (!lose){
-    background(255);
-    fill(0);
-    text("Score: " + score, 220, 100);
+    background(0);
+    fill(255);
+    text("Next", 245, 15);;
+    text("Score: " + score, 220, 120);
     drawGrid(map.grid, 0, 0);
-    drawGrid(pieces.nextBlock, 220, 0);
+    drawGrid(pieces.nextBlock, 220, 20);
     if (map.canLockIn()){
+      score+=20;
       map.clearCurrent();
+      map.removeFullRows();
       if (map.checkLost()) lose = true;
       map.add(pieces.nextBlock);
       pieces.getNextBlock();
+      map.clearPreview();
+      map.makePreview();
     }
-    for (int i=0;i<20;) {
-      if (map.fullRow(i)) {
-        map.removeRow(i);
-      }
-    }
-    if(delay == 0){
+    if(delay <= 0){
       delay = 60;
       map.moveDown();
     }
-    delay--;
+    delay -= 1+pow(1.0009,score);
   } else {
     fill(255,0,0);
-    text("Game Over!", 220,115);
-    text("Press Backspace to restart", 220,125);
+    text("Game Over!", 220,135);
+    text("Press Backspace to restart", 220,150);
   }
 }
 
 
-void keyPressed() { // use switch statement lol
+void keyPressed() {
+  
   switch (key){
     case 'a':
       map.moveLeft();
@@ -54,12 +59,11 @@ void keyPressed() { // use switch statement lol
     case 'd':
       map.moveRight();
       break;
-    //case ' ':
-    //  map.dropDown();
-    //  break;
+    case ' ':
+      map.dropDown();
+      break;
     case 'w':
       map.rotateCounter();
-      map.removeRow(22);
       break;
     case 's':
       map.moveDown();
@@ -73,6 +77,9 @@ void keyPressed() { // use switch statement lol
       map.add(pieces.nextBlock);
       pieces.getNextBlock();
       lose = false;
+      map.clearPreview();
+      map.makePreview();
+      break;
   }
 }
 
@@ -81,10 +88,17 @@ void drawGrid(Block[][] ary, int x, int y){
    for(int j = 0; j<ary[0].length;j++){
     if (ary[i][j] == null){
       if (i<4){
-        fill(184, 73, 81);
-      } else {fill(150);}
-    } else {fill(ary[i][j].c);}
-    rect(j*map.size+x,i*map.size+y,map.size,map.size,5);
+        fill(#dd7e75,150);
+      } else {fill(0);}
+    } else if (!ary[i][j].isPreview){
+        fill(ary[i][j].c);
+    } else{
+        color a = ary[i][j].c;
+        fill(color(red(a),green(a),blue(a), 150));
+    }
+    strokeWeight(2);
+    rect(j*map.size+x,i*map.size+y,map.size,map.size);
+    stroke(150);
    }
   }
 }

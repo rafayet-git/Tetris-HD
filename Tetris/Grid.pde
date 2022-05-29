@@ -4,11 +4,11 @@ public class Grid{
   int w;
   Block[][] grid;
   int[][] currentBlockxy;
-  int[][] previewBlock;
+  int[][] previewBlockxy;
   
   public Grid(int row, int col, int size_){ 
     currentBlockxy = new int[4][2];
-    previewBlock = new int[4][2];
+    previewBlockxy = new int[4][2];
     h = row+4;
     w = col;
     size =size_;
@@ -19,7 +19,7 @@ public class Grid{
   }
   void clearCurrent(){
     for(int i = 0; i<4;i++){
-      grid[currentBlockxy[i][0]][currentBlockxy[i][1]].isCurrent = false;
+      if (grid[currentBlockxy[i][0]][currentBlockxy[i][1]] != null)grid[currentBlockxy[i][0]][currentBlockxy[i][1]].isCurrent = false;
     }   
   }
   boolean checkLost(){
@@ -43,11 +43,6 @@ public class Grid{
     }
   }
   void removeRow(int row){
-    for (int i = 0; i < grid[row].length;i++){ // make them white for a small time
-      grid[row][i] = new Block(color(255));
-    }
-    draw();
-    delay(100);
     for (int i = 0; i < grid[row].length;i++){ // remove current row
       grid[row][i] = null;
     }
@@ -57,26 +52,29 @@ public class Grid{
           grid[i][j] = null;
        }
     }
-    for(int i = 0; i<4;i++){
-      currentBlockxy[i][0]++;
-    }
+    
   }
   //check if row is full
-  boolean fullRow(int row) {
-    for (int i=0;i<grid[row].length;) {
-      if (grid[row][i] != null) {
-        i++;
+  void removeFullRows() {
+    int amt = 0;
+    for(int i = 0; i < 4; i++){
+      boolean isFull = true;
+      for (int j = 0; j < w; j++){
+        if(grid[currentBlockxy[i][0]][j] == null){
+          isFull = false;
+          break;
+        }
       }
-      if (i==grid[row].length-1) {
-        return true;
+      if (isFull){
+        removeRow(currentBlockxy[i][0]);
+        i--;
+        amt++;
       }
     }
-    return false;
+    score += (100*pow(amt,2));
   }
-        
-        
-        
   
+       
   boolean canLockIn() {
     for (int i = 0; i<4;i++){
       if (currentBlockxy[i][0]+1==grid.length) return true;
@@ -97,7 +95,7 @@ public class Grid{
   }
   boolean canMoveRight(){
     for (int i = 0; i<4;i++){
-      if (currentBlockxy[i][0]+1==w) return false;
+      if (currentBlockxy[i][1]+1==w) return false;
       if (grid[currentBlockxy[i][0]][currentBlockxy[i][1]+1] != null && grid[currentBlockxy[i][0]][currentBlockxy[i][1]+1].isCurrent == false){
         return false;
       }
@@ -111,8 +109,10 @@ public class Grid{
       }
    }
   }
+
   void moveLeft() {
     if (canMoveLeft()) {
+      clearPreview();
       color col = grid[currentBlockxy[0][0]][currentBlockxy[0][1]].c;    
       for (int i = 0; i<4; i++) {
         grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = null;
@@ -124,6 +124,8 @@ public class Grid{
           currentBlockxy[i][1]--;
         }
       }
+      clearPreview();
+      makePreview();
     }
   }
   void moveRight() {
@@ -140,6 +142,8 @@ public class Grid{
         }
       }
     }
+      clearPreview();
+      makePreview();
   }
   void moveDown() {
     if (!canLockIn()) {
@@ -152,22 +156,55 @@ public class Grid{
         grid[currentBlockxy[i][0]+1][currentBlockxy[i][1]].isCurrent = true;
         currentBlockxy[i][0]++;
       }
+      clearPreview();
+      makePreview();
     }
   }
-  //I dont think we need this because if we press 's' it already goes down faster
-  //void dropDown() {
-  //  if (!canLockIn()) {
-  //    color col = grid[currentBlockxy[0][0]][currentBlockxy[0][1]].c;    
-  //    for (int i = 0; i<4; i++) {
-  //      grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = null;
-  //    }
-  //    for (int i = 0; i<4; i++) {
-  //      grid[currentBlockxy[i][0]+3][currentBlockxy[i][1]] = new Block(col);
-  //      grid[currentBlockxy[i][0]+3][currentBlockxy[i][1]].isCurrent = true;
-  //      currentBlockxy[i][0]+=3;
-  //    }
-  //  }
-  //}
+  
+  boolean canLockInPrev() {
+    for (int i = 0; i<4;i++){
+      if (previewBlockxy[i][0]+1==grid.length) return true;
+      if (grid[previewBlockxy[i][0]+1][previewBlockxy[i][1]] != null && grid[previewBlockxy[i][0]+1][previewBlockxy[i][1]].isCurrent == false){
+        return true;
+      }
+    }
+    return false;
+  }
+  void makePreview(){
+    color newcolor = grid[currentBlockxy[0][0]][currentBlockxy[0][1]].c;
+    int min = Integer.MAX_VALUE;
+    for (int i = 0; i<4;i++){ // set preview coords to current
+       min = min(min,currentBlockxy[i][0]);      
+       previewBlockxy[i][0]=currentBlockxy[i][0];
+       previewBlockxy[i][1]=currentBlockxy[i][1];
+    }
+    while(!canLockInPrev()){ // update preview by checking if the blocks below arent taken
+      for (int i = 0; i<4;i++){
+         previewBlockxy[i][0]++;
+      }     
+    }
+    for (int i = 0; i<4;i++){
+      if(grid[previewBlockxy[i][0]][previewBlockxy[i][1]] == null){
+        grid[previewBlockxy[i][0]][previewBlockxy[i][1]] = new Block(newcolor);
+        grid[previewBlockxy[i][0]][previewBlockxy[i][1]].isCurrent = true;
+        grid[previewBlockxy[i][0]][previewBlockxy[i][1]].isPreview = true;
+      }
+    }
+  }
+  void clearPreview(){
+    for(int i = 0; i<4;i++){ //set preview blocks to null
+      if(grid[previewBlockxy[i][0]][previewBlockxy[i][1]] != null && grid[previewBlockxy[i][0]][previewBlockxy[i][1]].isPreview == true) grid[previewBlockxy[i][0]][previewBlockxy[i][1]] = null;
+    } 
+  }
+  void dropDown() {
+    for (int i = 0; i<4; i++) {
+      grid[previewBlockxy[i][0]][previewBlockxy[i][1]] = grid[currentBlockxy[i][0]][currentBlockxy[i][1]];
+      grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = null;
+      currentBlockxy[i][0] = previewBlockxy[i][0];
+      currentBlockxy[i][1] = previewBlockxy[i][1];
+      
+    }
+  }
   void rotateCounter() {
     
   }
