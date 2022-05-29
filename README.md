@@ -30,6 +30,9 @@ I added a function canLockIn which can tell if a tetromino can be landed or not,
 *5/26:*\
 I made the block go down every 60 seconds, display for score and game over case.
 
+*5/29:*\
+I added block previewing which shows how blocks will show when placed, and pressing spacebar will drop it down there.
+
 ### Wing Jiang
 
 *5/23:*\
