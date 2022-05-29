@@ -4,11 +4,11 @@ public class Grid{
   int w;
   Block[][] grid;
   int[][] currentBlockxy;
-  int[][] previewBlock;
+  int[][] previewBlockxy;
   
   public Grid(int row, int col, int size_){ 
     currentBlockxy = new int[4][2];
-    previewBlock = new int[4][2];
+    previewBlockxy = new int[4][2];
     h = row+4;
     w = col;
     size =size_;
@@ -115,6 +115,7 @@ public class Grid{
 
   void moveLeft() {
     if (canMoveLeft()) {
+      clearPreview();
       color col = grid[currentBlockxy[0][0]][currentBlockxy[0][1]].c;    
       for (int i = 0; i<4; i++) {
         grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = null;
@@ -126,6 +127,8 @@ public class Grid{
           currentBlockxy[i][1]--;
         }
       }
+      clearPreview();
+      makePreview();
     }
   }
   void moveRight() {
@@ -142,6 +145,8 @@ public class Grid{
         }
       }
     }
+      clearPreview();
+      makePreview();
   }
   void moveDown() {
     if (!canLockIn()) {
@@ -154,7 +159,45 @@ public class Grid{
         grid[currentBlockxy[i][0]+1][currentBlockxy[i][1]].isCurrent = true;
         currentBlockxy[i][0]++;
       }
+      clearPreview();
+      makePreview();
     }
+  }
+  
+  boolean canLockInPrev() {
+    for (int i = 0; i<4;i++){
+      if (previewBlockxy[i][0]+1==grid.length) return true;
+      if (grid[previewBlockxy[i][0]+1][previewBlockxy[i][1]] != null && grid[previewBlockxy[i][0]+1][previewBlockxy[i][1]].isCurrent == false){
+        return true;
+      }
+    }
+    return false;
+  }
+  void makePreview(){
+    color newcolor = grid[currentBlockxy[0][0]][currentBlockxy[0][1]].c;
+    int min = Integer.MAX_VALUE;
+    for (int i = 0; i<4;i++){
+       min = min(min,currentBlockxy[i][0]);      
+       previewBlockxy[i][0]=currentBlockxy[i][0];
+       previewBlockxy[i][1]=currentBlockxy[i][1];
+    }
+    while(!canLockInPrev()){
+      for (int i = 0; i<4;i++){
+         previewBlockxy[i][0]++;
+      }     
+    }
+    for (int i = 0; i<4;i++){
+      if(grid[previewBlockxy[i][0]][previewBlockxy[i][1]] == null){
+        grid[previewBlockxy[i][0]][previewBlockxy[i][1]] = new Block(newcolor);
+        grid[previewBlockxy[i][0]][previewBlockxy[i][1]].isCurrent = true;
+        grid[previewBlockxy[i][0]][previewBlockxy[i][1]].isPreview = true;
+      }
+    }
+  }
+  void clearPreview(){
+    for(int i = 0; i<4;i++){ //set preview blocks to null
+      if(grid[previewBlockxy[i][0]][previewBlockxy[i][1]] != null && grid[previewBlockxy[i][0]][previewBlockxy[i][1]].isPreview == true) grid[previewBlockxy[i][0]][previewBlockxy[i][1]] = null;
+    } 
   }
   //I dont think we need this because if we press 's' it already goes down faster
   //Well shouldnt the drop down function automatically drop the block to the bottom?

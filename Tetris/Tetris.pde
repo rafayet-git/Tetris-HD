@@ -13,6 +13,8 @@ void setup() {
   pieces.getNextBlock();
   score = 0;
   delay = 60;
+  map.clearPreview();
+  map.makePreview();
 }
 
 void draw() {
@@ -23,6 +25,7 @@ void draw() {
     drawGrid(map.grid, 0, 0);
     drawGrid(pieces.nextBlock, 220, 0);
     if (map.canLockIn()){
+      score+=20;
       map.clearCurrent();
       map.removeFullRows();
       if (map.checkLost()) lose = true;
@@ -42,7 +45,8 @@ void draw() {
 }
 
 
-void keyPressed() { // use switch statement lol
+void keyPressed() {
+  
   switch (key){
     case 'a':
       map.moveLeft();
@@ -79,8 +83,16 @@ void drawGrid(Block[][] ary, int x, int y){
       if (i<4){
         fill(#dd7e75);
       } else {fill(150);}
-    } else {fill(ary[i][j].c);}
+    } else if (!ary[i][j].isPreview){
+        fill(ary[i][j].c);
+    } else{
+        fill(150);
+        stroke(ary[i][j].c);
+        strokeWeight(3);
+    }
     rect(j*map.size+x,i*map.size+y,map.size,map.size,5);
+    strokeWeight(1);
+    stroke(0);
    }
   }
 }
