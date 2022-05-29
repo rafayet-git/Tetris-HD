@@ -1,7 +1,7 @@
 # Tetris-HD
 Tetris for APCS Final Project
 
-##**Falling Blocks**
+## **Falling Blocks**
 
 By : Wing Jiang, Rafayet Hossain
 
