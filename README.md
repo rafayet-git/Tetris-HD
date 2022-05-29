@@ -13,7 +13,7 @@ We are going to be making Tetris in Processing. You play Tetris by trying to fil
 
 ## Compile instructions:
 
-  ⋅⋅* Requires Processing 3.5.4 (https://processing.org/download)
+  * Requires Processing 3.5.4 (https://processing.org/download)
   
 ## Development logs:
 
