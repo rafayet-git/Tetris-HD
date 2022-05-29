@@ -19,7 +19,7 @@ public class Grid{
   }
   void clearCurrent(){
     for(int i = 0; i<4;i++){
-      grid[currentBlockxy[i][0]][currentBlockxy[i][1]].isCurrent = false;
+      if (grid[currentBlockxy[i][0]][currentBlockxy[i][1]] != null)grid[currentBlockxy[i][0]][currentBlockxy[i][1]].isCurrent = false;
     }   
   }
   boolean checkLost(){
@@ -74,10 +74,7 @@ public class Grid{
     score += (100*pow(amt,2));
   }
   
-        
-        
-        
-  
+       
   boolean canLockIn() {
     for (int i = 0; i<4;i++){
       if (currentBlockxy[i][0]+1==grid.length) return true;
@@ -176,12 +173,12 @@ public class Grid{
   void makePreview(){
     color newcolor = grid[currentBlockxy[0][0]][currentBlockxy[0][1]].c;
     int min = Integer.MAX_VALUE;
-    for (int i = 0; i<4;i++){
+    for (int i = 0; i<4;i++){ // set preview coords to current
        min = min(min,currentBlockxy[i][0]);      
        previewBlockxy[i][0]=currentBlockxy[i][0];
        previewBlockxy[i][1]=currentBlockxy[i][1];
     }
-    while(!canLockInPrev()){
+    while(!canLockInPrev()){ // update preview by checking if the blocks below arent taken
       for (int i = 0; i<4;i++){
          previewBlockxy[i][0]++;
       }     
@@ -199,21 +196,15 @@ public class Grid{
       if(grid[previewBlockxy[i][0]][previewBlockxy[i][1]] != null && grid[previewBlockxy[i][0]][previewBlockxy[i][1]].isPreview == true) grid[previewBlockxy[i][0]][previewBlockxy[i][1]] = null;
     } 
   }
-  //I dont think we need this because if we press 's' it already goes down faster
-  //Well shouldnt the drop down function automatically drop the block to the bottom?
-  //void dropDown() {
-  //  if (!canLockIn()) {
-  //    color col = grid[currentBlockxy[0][0]][currentBlockxy[0][1]].c;    
-  //    for (int i = 0; i<4; i++) {
-  //      grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = null;
-  //    }
-  //    for (int i = 0; i<4; i++) {
-  //      grid[currentBlockxy[i][0]+3][currentBlockxy[i][1]] = new Block(col);
-  //      grid[currentBlockxy[i][0]+3][currentBlockxy[i][1]].isCurrent = true;
-  //      currentBlockxy[i][0]+=3;
-  //    }
-  //  }
-  //}
+  void dropDown() {
+    for (int i = 0; i<4; i++) {
+      grid[previewBlockxy[i][0]][previewBlockxy[i][1]] = grid[currentBlockxy[i][0]][currentBlockxy[i][1]];
+      grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = null;
+      currentBlockxy[i][0] = previewBlockxy[i][0];
+      currentBlockxy[i][1] = previewBlockxy[i][1];
+      
+    }
+  }
   void rotateCounter() {
     
   }

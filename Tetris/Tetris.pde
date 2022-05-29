@@ -15,15 +15,18 @@ void setup() {
   delay = 60;
   map.clearPreview();
   map.makePreview();
+  fill(255);
+
 }
 
 void draw() {
   if (!lose){
     background(0);
     fill(255);
-    text("Score: " + score, 220, 100);
+    text("Next", 245, 15);;
+    text("Score: " + score, 220, 120);
     drawGrid(map.grid, 0, 0);
-    drawGrid(pieces.nextBlock, 220, 0);
+    drawGrid(pieces.nextBlock, 220, 20);
     if (map.canLockIn()){
       score+=20;
       map.clearCurrent();
@@ -31,6 +34,8 @@ void draw() {
       if (map.checkLost()) lose = true;
       map.add(pieces.nextBlock);
       pieces.getNextBlock();
+      map.clearPreview();
+      map.makePreview();
     }
     if(delay <= 0){
       delay = 60;
@@ -39,8 +44,8 @@ void draw() {
     delay -= 1+pow(1.0009,score);
   } else {
     fill(255,0,0);
-    text("Game Over!", 220,115);
-    text("Press Backspace to restart", 220,125);
+    text("Game Over!", 220,135);
+    text("Press Backspace to restart", 220,150);
   }
 }
 
@@ -54,9 +59,9 @@ void keyPressed() {
     case 'd':
       map.moveRight();
       break;
-    //case ' ':
-    //  map.dropDown();
-    //  break;
+    case ' ':
+      map.dropDown();
+      break;
     case 'w':
       map.rotateCounter();
       break;
@@ -72,6 +77,8 @@ void keyPressed() {
       map.add(pieces.nextBlock);
       pieces.getNextBlock();
       lose = false;
+      map.clearPreview();
+      map.makePreview();
       break;
   }
 }
