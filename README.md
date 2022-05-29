@@ -9,7 +9,7 @@ https://docs.google.com/document/d/1ruSu0zpMZb-U_gtxiN6U1kYi0UaYIY6zf_DUmGutIEc/
 
 
 **Brief Project Description:**
-We are going to be making Tetris in Processing. You play Tetris by trying to fill out and removing rows using tetrominoes. Tetrominoes are tetris shapes made with 4 blocks: I, O, T, S, L, Z, and J. You lose when tetrominoes fill up to the top of the screen. The tetris screen size is 10 by 20. When a row is filled with 10 blocks made by the tetrominoes, it gets removed and the rest of the blocks get shifted down. We will include different versions of tetris including the traditional version and more. 
+We are going to be making Tetris in Processing. You play Tetris by trying to fill out and removing rows using tetrominoes. Tetrominoes are tetris shapes made with 7 blocks: I, O, T, S, L, Z, and J. You lose when tetrominoes reach the top 4 rows on the screen. The tetris screen size is 10 by 20. When a row is filled with 10 blocks made by the tetrominoes, it gets removed and the rest of the blocks get shifted down. We will include different versions of tetris including the traditional version and more. 
 
 ## Development logs:
 
@@ -27,7 +27,7 @@ I worked on adding shapes for each tetromino, wrote the draw grid function and u
 *5/26:*\
 I added a function canLockIn which can tell if a tetromino can be landed or not, i added drawGrid to display maps.
 
-*5/26:*\
+*5/27:*\
 I made the block go down every 60 seconds, display for score and game over case.
 
 *5/29:*\
