@@ -87,7 +87,7 @@ void drawGrid(Block[][] ary, int x, int y){
   for(int i = 0; i < ary.length;i++){
    for(int j = 0; j<ary[0].length;j++){
     if (ary[i][j] == null){
-      if (i<4){
+      if (i<4 && ary.length > 4){
         fill(#dd7e75,150);
       } else {fill(0);}
     } else if (!ary[i][j].isPreview){
