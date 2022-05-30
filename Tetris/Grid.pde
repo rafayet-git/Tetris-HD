@@ -206,6 +206,14 @@ public class Grid{
     }
   }
   void rotateCounter() {
-    
+    if (!canLockIn()) {
+      for (int i = 0; i<4; i++) {
+        Block temp = grid[currentBlockxy[i][0]][currentBlockxy[i][1]];
+        grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = grid[currentBlockxy[i][1]][currentBlockxy[i][0]];
+        grid[currentBlockxy[i][1]][currentBlockxy[i][0]] = temp;
+      }
+      //clearPreview();
+      //makePreview();
+    }
   }
 }
