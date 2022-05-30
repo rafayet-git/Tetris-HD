@@ -74,7 +74,7 @@ public class Grid{
     score += (100*pow(amt,2));
   }
   
-       
+    
   boolean canLockIn() {
     for (int i = 0; i<4;i++){
       if (currentBlockxy[i][0]+1==grid.length) return true;
@@ -205,7 +205,23 @@ public class Grid{
       
     }
   }
+  boolean canRotate(color c){
+    if (c == color(255,247,0)) return false;
+    if (c == color(52,235,222)){
+      
+    } else {
+      
+    }
+    return true;
+  }
   void rotateCounter() {
-    
+    color col = grid[currentBlockxy[0][0]][currentBlockxy[0][1]].c;
+    if (canRotate(col)){
+      if (col == color(52,235,222)){
+        
+      } else {
+        
+      }
+    }
   }
 }
