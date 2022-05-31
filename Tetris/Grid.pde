@@ -3,6 +3,7 @@ public class Grid{
   int h;
   int w;
   Block[][] grid;
+  int blockLocation;
   int[][] currentBlockxy;
   int[][] previewBlockxy;
   
@@ -12,6 +13,7 @@ public class Grid{
     h = row+4;
     w = col;
     size =size_;
+    blockLocation = (w/2)-2;
     grid = new Block[row+4][col];
   }
   public Grid(){ // Standard 10x20 grid
@@ -31,12 +33,12 @@ public class Grid{
   void add(Block[][] next){ // for use with tetromino nextblock
     int count = 0;
     for (int i=0; i<4;i++){
-     for(int j=0;j<4;j++){
-       grid[i][(w/2)-2+j] = next[i][j];
-       if (grid[i][(w/2)-2+j] != null){
-         grid[i][(w/2)-2+j].isCurrent = true;
+     for(int j=0;j<3;j++){
+       grid[i][blockLocation+j] = next[i][j];
+       if (grid[i][blockLocation+j] != null){
+         grid[i][blockLocation+j].isCurrent = true;
          currentBlockxy[count][0] = i;
-         currentBlockxy[count][1] = (w/2)-2+j;
+         currentBlockxy[count][1] = blockLocation+j;
          count++;
        }
      }
@@ -126,6 +128,7 @@ public class Grid{
       }
       clearPreview();
       makePreview();
+      blockLocation--;
     }
   }
   void moveRight() {
@@ -141,9 +144,10 @@ public class Grid{
           currentBlockxy[i][1]++;
         }
       }
-    }
       clearPreview();
       makePreview();
+      if (blockLocation<7)blockLocation++;
+    }
   }
   void moveDown() {
     if (!canLockIn()) {
