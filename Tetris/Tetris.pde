@@ -37,7 +37,7 @@ void draw() {
     drawGrid(pieces.nextBlock, 228, 20);
     if (map.canLockIn()){
       score+=20;
-      map.clearCurrent();
+      map.clearCurrentBool();
       map.removeFullRows();
       if (map.checkLost()) lose = true;
       map.add(pieces.nextBlock);

@@ -6,6 +6,7 @@ public class Grid{
   int blockLocation;
   int[][] currentBlockxy;
   int[][] previewBlockxy;
+  int turns = 1;
   
   public Grid(int row, int col, int size_){ 
     currentBlockxy = new int[4][2];
@@ -19,7 +20,7 @@ public class Grid{
   public Grid(){ // Standard 10x20 grid
     this(20,10, 20); 
   }
-  void clearCurrent(){
+  void clearCurrentBool(){
     for(int i = 0; i<4;i++){
       if (grid[currentBlockxy[i][0]][currentBlockxy[i][1]] != null)grid[currentBlockxy[i][0]][currentBlockxy[i][1]].isCurrent = false;
     }   
@@ -31,6 +32,7 @@ public class Grid{
     return false;
   }
   void add(Block[][] next){ // for use with tetromino nextblock
+    turns = 1;
     int count = 0;
     for (int i=0; i<4;i++){
      for(int j=0;j<3;j++){
@@ -209,23 +211,46 @@ public class Grid{
       
     }
   }
-  boolean canRotate(color c){
-    if (c == O) return false;
-    if (c == L){
+  boolean canRotateI(){
+    if (turns == 1){
       
-    } else {
+    } else{
       
     }
     return true;
   }
   void rotateCounter() {
     color col = grid[currentBlockxy[0][0]][currentBlockxy[0][1]].c;
-    if (canRotate(col)){
-      if (col == L){
-        
+    if (col != O){
+      for(int i = 0 ; i < 4; i++){
+        grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = null;
+      }
+      if (col == I && canRotateI()){
+        grid[currentBlockxy[1][0]][currentBlockxy[1][1]] = new Block(col,true);
+        if (turns == 1){
+          for(int i = 0; i<4;i++){
+             if (i != 1){
+               currentBlockxy[i][1]+= (i-1);
+               currentBlockxy[i][0] = currentBlockxy[1][0];
+               grid[currentBlockxy[1][0]][currentBlockxy[i][1]] = new Block(col,true);
+             }
+          }
+          turns++;
+        } else{
+          for(int i = 0; i<4;i++){
+             if (i != 1){
+               currentBlockxy[i][0]+= (i-1);
+               currentBlockxy[i][1] = currentBlockxy[1][1];
+               grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = new Block(col,true);
+             }
+          }
+          turns--;
+        }
       } else {
         
       }
     }
+      clearPreview();
+      makePreview();
   }
 }

@@ -7,4 +7,9 @@ public class Block {
    isPreview = false;
    c = c_;
   }
+  public Block(color c_, boolean isCur_){
+   isCurrent = isCur_;
+   isPreview = false;
+   c = c_;
+  }
 }
