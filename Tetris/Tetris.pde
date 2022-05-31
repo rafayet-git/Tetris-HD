@@ -26,7 +26,7 @@ void draw() {
     text("Next", 245, 15);;
     text("Score: " + score, 220, 120);
     drawGrid(map.grid, 0, 0);
-    drawGrid(pieces.nextBlock, 220, 20);
+    drawGrid(pieces.nextBlock, 228, 20);
     if (map.canLockIn()){
       score+=20;
       map.clearCurrent();
