@@ -128,7 +128,7 @@ public class Grid{
       }
       clearPreview();
       makePreview();
-      blockLocation--;
+      if (blockLocation>=0)blockLocation--;
     }
   }
   void moveRight() {
@@ -210,8 +210,8 @@ public class Grid{
     }
   }
   boolean canRotate(color c){
-    if (c == color(255,247,0)) return false;
-    if (c == color(52,235,222)){
+    if (c == O) return false;
+    if (c == L){
       
     } else {
       
@@ -221,7 +221,7 @@ public class Grid{
   void rotateCounter() {
     color col = grid[currentBlockxy[0][0]][currentBlockxy[0][1]].c;
     if (canRotate(col)){
-      if (col == color(52,235,222)){
+      if (col == L){
         
       } else {
         

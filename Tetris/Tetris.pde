@@ -5,6 +5,14 @@ Tetromino pieces;
 boolean lose = false;
 float delay;
 
+final color I = color(52,235,222);
+final color O = color(255,247,0);
+final color T = color(255, 0, 204);
+final color S = color(3, 255, 3);
+final color L = color(255, 175, 3);
+final color Z = color(255, 3, 53);
+final color J = color(192, 3, 255);
+  
 void setup() {
   size(400,500);
   map = new Grid();
