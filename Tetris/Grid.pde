@@ -3,8 +3,10 @@ public class Grid{
   int h;
   int w;
   Block[][] grid;
+  int blockLocation;
   int[][] currentBlockxy;
   int[][] previewBlockxy;
+  int turns = 1;
   
   public Grid(int row, int col, int size_){ 
     currentBlockxy = new int[4][2];
@@ -12,12 +14,13 @@ public class Grid{
     h = row+4;
     w = col;
     size =size_;
+    blockLocation = (w/2)-2;
     grid = new Block[row+4][col];
   }
   public Grid(){ // Standard 10x20 grid
     this(20,10, 20); 
   }
-  void clearCurrent(){
+  void clearCurrentBool(){
     for(int i = 0; i<4;i++){
       if (grid[currentBlockxy[i][0]][currentBlockxy[i][1]] != null)grid[currentBlockxy[i][0]][currentBlockxy[i][1]].isCurrent = false;
     }   
@@ -29,14 +32,15 @@ public class Grid{
     return false;
   }
   void add(Block[][] next){ // for use with tetromino nextblock
+    turns = 1;
     int count = 0;
     for (int i=0; i<4;i++){
-     for(int j=0;j<4;j++){
-       grid[i][(w/2)-2+j] = next[i][j];
-       if (grid[i][(w/2)-2+j] != null){
-         grid[i][(w/2)-2+j].isCurrent = true;
+     for(int j=0;j<3;j++){
+       grid[i][blockLocation+j] = next[i][j];
+       if (grid[i][blockLocation+j] != null){
+         grid[i][blockLocation+j].isCurrent = true;
          currentBlockxy[count][0] = i;
-         currentBlockxy[count][1] = (w/2)-2+j;
+         currentBlockxy[count][1] = blockLocation+j;
          count++;
        }
      }
@@ -74,7 +78,7 @@ public class Grid{
     score += (100*pow(amt,2));
   }
   
-       
+    
   boolean canLockIn() {
     for (int i = 0; i<4;i++){
       if (currentBlockxy[i][0]+1==grid.length) return true;
@@ -126,6 +130,7 @@ public class Grid{
       }
       clearPreview();
       makePreview();
+      if (blockLocation>=0)blockLocation--;
     }
   }
   void moveRight() {
@@ -141,9 +146,10 @@ public class Grid{
           currentBlockxy[i][1]++;
         }
       }
-    }
       clearPreview();
       makePreview();
+      if (blockLocation<7)blockLocation++;
+    }
   }
   void moveDown() {
     if (!canLockIn()) {
@@ -205,7 +211,46 @@ public class Grid{
       
     }
   }
+  boolean canRotateI(){
+    if (turns == 1){
+      
+    } else{
+      
+    }
+    return true;
+  }
   void rotateCounter() {
-    
+    color col = grid[currentBlockxy[0][0]][currentBlockxy[0][1]].c;
+    if (col != O){
+      for(int i = 0 ; i < 4; i++){
+        grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = null;
+      }
+      if (col == I && canRotateI()){
+        grid[currentBlockxy[1][0]][currentBlockxy[1][1]] = new Block(col,true);
+        if (turns == 1){
+          for(int i = 0; i<4;i++){
+             if (i != 1){
+               currentBlockxy[i][1]+= (i-1);
+               currentBlockxy[i][0] = currentBlockxy[1][0];
+               grid[currentBlockxy[1][0]][currentBlockxy[i][1]] = new Block(col,true);
+             }
+          }
+          turns++;
+        } else{
+          for(int i = 0; i<4;i++){
+             if (i != 1){
+               currentBlockxy[i][0]+= (i-1);
+               currentBlockxy[i][1] = currentBlockxy[1][1];
+               grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = new Block(col,true);
+             }
+          }
+          turns--;
+        }
+      } else {
+        
+      }
+    }
+      clearPreview();
+      makePreview();
   }
 }

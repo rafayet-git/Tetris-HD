@@ -5,6 +5,14 @@ Tetromino pieces;
 boolean lose = false;
 float delay;
 
+final color I = color(52,235,222);
+final color O = color(255,247,0);
+final color T = color(255, 0, 204);
+final color S = color(3, 255, 3);
+final color L = color(255, 175, 3);
+final color Z = color(255, 3, 53);
+final color J = color(192, 3, 255);
+  
 void setup() {
   size(400,500);
   map = new Grid();
@@ -26,10 +34,10 @@ void draw() {
     text("Next", 245, 15);;
     text("Score: " + score, 220, 120);
     drawGrid(map.grid, 0, 0);
-    drawGrid(pieces.nextBlock, 220, 20);
+    drawGrid(pieces.nextBlock, 228, 20);
     if (map.canLockIn()){
       score+=20;
-      map.clearCurrent();
+      map.clearCurrentBool();
       map.removeFullRows();
       if (map.checkLost()) lose = true;
       map.add(pieces.nextBlock);
@@ -87,7 +95,7 @@ void drawGrid(Block[][] ary, int x, int y){
   for(int i = 0; i < ary.length;i++){
    for(int j = 0; j<ary[0].length;j++){
     if (ary[i][j] == null){
-      if (i<4){
+      if (i<4 && ary.length > 4){
         fill(#dd7e75,150);
       } else {fill(0);}
     } else if (!ary[i][j].isPreview){
