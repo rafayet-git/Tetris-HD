@@ -211,21 +211,36 @@ public class Grid{
       
     }
   }
-  boolean canRotateI(){
-    if (turns == 1){
-      
+  boolean canRotate(color col){
+    if (col == O) return false;
+    if (col == I){
+      if(turns==1){
+          for(int i = 0; i<4;i++){
+            if (currentBlockxy[i][1]+(i-1) <0 || currentBlockxy[i][1]+(i-1) >=w) return false;
+            if ((i != 1 && grid[currentBlockxy[i][0]][currentBlockxy[i][1]+(i-1)] != null)){
+              return false;
+            }
+          }
+      } else{
+          for(int i = 0; i<4;i++){
+            if (currentBlockxy[i][0]+(i-1) <0 || currentBlockxy[i][0]+(i-1) >=h) return false;
+            if ((i!= 1 && grid[currentBlockxy[i][0]+(i-1)][currentBlockxy[i][1]] != null)){
+              return false;
+            }
+          }
+      }
     } else{
-      
+      return false;
     }
     return true;
   }
   void rotateCounter() {
     color col = grid[currentBlockxy[0][0]][currentBlockxy[0][1]].c;
-    if (col != O){
+    if (canRotate(col)){
       for(int i = 0 ; i < 4; i++){
         grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = null;
       }
-      if (col == I && canRotateI()){
+      if (col == I){
         grid[currentBlockxy[1][0]][currentBlockxy[1][1]] = new Block(col,true);
         if (turns == 1){
           for(int i = 0; i<4;i++){
