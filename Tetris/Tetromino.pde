@@ -17,6 +17,7 @@ public class Tetromino{
        QueuedBlocks.add(shuffler.get(i));  
      }
   }
+
   void getNextBlock(){ // do grid.add before this
     for(Block[] temp : nextBlock){
       Arrays.fill(temp, null);

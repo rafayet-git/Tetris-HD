@@ -6,8 +6,10 @@ public class Grid {
   int blockLocation;
   int[][] currentBlockxy;
   int[][] previewBlockxy;
+  int[][] holdBlock = new int[4][2];
   int turns = 1;
-
+  Tetromino piece;
+  
   public Grid(int row, int col, int size_) { 
     currentBlockxy = new int[4][2];
     previewBlockxy = new int[4][2];
@@ -20,6 +22,20 @@ public class Grid {
   public Grid() { // Standard 10x20 grid
     this(20, 10, 20);
   }
+  
+  void holdBlock() {
+    if (holdBlock != null) {
+      for (int i=0;i<4;i++) {
+        for (int j=0;j<2;j++) {
+          holdBlock[i][j] = currentBlockxy[i][j];
+          piece = piece.getNextBlock();
+          currentBlockxy[i][j] = 
+        }
+      }
+      
+    }
+  }
+  
   void clearCurrentBool() {
     for (int i = 0; i<4; i++) {
       if (grid[currentBlockxy[i][0]][currentBlockxy[i][1]] != null)grid[currentBlockxy[i][0]][currentBlockxy[i][1]].isCurrent = false;
