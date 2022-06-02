@@ -37,6 +37,9 @@ I made the block go down every 60 seconds, display for score and game over case.
 *5/29:*\
 I added block previewing which shows how blocks will show when placed, and pressing spacebar will drop it down there.
 
+*5/31:*\
+I started on rotate, working on rotating current blocks
+
 ### Wing Jiang
 
 *5/23:*\

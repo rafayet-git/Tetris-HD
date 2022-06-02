@@ -18,7 +18,7 @@ void setup() {
   map = new Grid();
   pieces = new Tetromino();
   map.add(pieces.nextBlock);
-  pieces.getNextBlock();
+  pieces.getNextBlock(false);
   score = 0;
   delay = 60;
   map.clearPreview();
@@ -41,7 +41,7 @@ void draw() {
       map.removeFullRows();
       if (map.checkLost()) lose = true;
       map.add(pieces.nextBlock);
-      pieces.getNextBlock();
+      pieces.getNextBlock(false);
       map.clearPreview();
       map.makePreview();
     }
@@ -83,7 +83,7 @@ void keyPressed() {
       score = 0;
       map.clearTable();
       map.add(pieces.nextBlock);
-      pieces.getNextBlock();
+      pieces.getNextBlock(false);
       lose = false;
       map.clearPreview();
       map.makePreview();
