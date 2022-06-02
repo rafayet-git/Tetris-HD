@@ -8,8 +8,7 @@ public class Grid {
   int[][] previewBlockxy;
   int[][] holdBlock = new int[4][2];
   int turns = 1;
-  Tetromino piece;
-  
+
   public Grid(int row, int col, int size_) { 
     currentBlockxy = new int[4][2];
     previewBlockxy = new int[4][2];
@@ -23,19 +22,7 @@ public class Grid {
     this(20, 10, 20);
   }
   
-  void holdBlock() {
-    if (holdBlock != null) {
-      for (int i=0;i<4;i++) {
-        for (int j=0;j<2;j++) {
-          holdBlock[i][j] = currentBlockxy[i][j];
-          piece.getNextBlock();
-          currentBlockxy[i][j] = 
-        }
-      }
-      
-    }
-  }
-  
+
   void clearCurrentBool() {
     for (int i = 0; i<4; i++) {
       if (grid[currentBlockxy[i][0]][currentBlockxy[i][1]] != null)grid[currentBlockxy[i][0]][currentBlockxy[i][1]].isCurrent = false;
@@ -225,25 +212,25 @@ public class Grid {
       currentBlockxy[i][1] = previewBlockxy[i][1];
     }
   }
-  boolean canRotate(color col){
+  boolean canRotate(color col) {
     if (col == O) return false;
-    if (col == I){
-      if(turns==1){
-          for(int i = 0; i<4;i++){
-            if (currentBlockxy[i][1]+(i-1) <0 || currentBlockxy[i][1]+(i-1) >=w) return false;
-            if ((i != 1 && grid[currentBlockxy[i][0]][currentBlockxy[i][1]+(i-1)] != null)){
-              return false;
-            }
+    if (col == I) {
+      if (turns==1) {
+        for (int i = 0; i<4; i++) {
+          if (currentBlockxy[i][1]+(i-1) <0 || currentBlockxy[i][1]+(i-1) >=w) return false;
+          if ((i != 1 && grid[currentBlockxy[i][0]][currentBlockxy[i][1]+(i-1)] != null)) {
+            return false;
           }
-      } else{
-          for(int i = 0; i<4;i++){
-            if (currentBlockxy[i][0]+(i-1) <0 || currentBlockxy[i][0]+(i-1) >=h) return false;
-            if ((i!= 1 && grid[currentBlockxy[i][0]+(i-1)][currentBlockxy[i][1]] != null)){
-              return false;
-            }
+        }
+      } else {
+        for (int i = 0; i<4; i++) {
+          if (currentBlockxy[i][0]+(i-1) <0 || currentBlockxy[i][0]+(i-1) >=h) return false;
+          if ((i!= 1 && grid[currentBlockxy[i][0]+(i-1)][currentBlockxy[i][1]] != null)) {
+            return false;
           }
+        }
       }
-    } else{
+    } else {
       return false;
     }
     return true;
@@ -254,58 +241,58 @@ public class Grid {
     }
     return true;
   }
-  
-  void rotateCounter() {
-    color col = grid[currentBlockxy[0][0]][currentBlockxy[0][1]].c;
-    if (canRotate(col)){
-      for(int i = 0 ; i < 4; i++){
-        grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = null;
-      }
-      if (col == I){
-        grid[currentBlockxy[1][0]][currentBlockxy[1][1]] = new Block(col,true);
-        if (turns == 1){
-          for(int i = 0; i<4;i++){
-             if (i != 1){
-               currentBlockxy[i][1]+= (i-1);
-               currentBlockxy[i][0] = currentBlockxy[1][0];
-               grid[currentBlockxy[1][0]][currentBlockxy[i][1]] = new Block(col,true);
-             }
-          }
-          turns++;
-        } else {
-          for (int i = 0; i<4; i++) {
-            if (i != 1) {
-              currentBlockxy[i][0]+= (i-1);
-              currentBlockxy[i][1] = currentBlockxy[1][1];
-              grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = new Block(col, true);
-            }
-          }
-          turns--;
-        }
-      } else if (col == J && canRotateJ()) {
-        grid[currentBlockxy[1][0]][currentBlockxy[1][1]] = new Block(col, true);
-        if (turns == 1) {
-          for (int i = 0; i<4; i++) {
-            if (i != 1) {
-              currentBlockxy[i][1]+= (i-1);
-              currentBlockxy[i][0] = currentBlockxy[1][0];
-              grid[currentBlockxy[1][0]][currentBlockxy[i][1]] = new Block(col, true);
-            }
-          }
-          turns++;
-        } else {
-          for (int i = 0; i<4; i++) {
-            if (i != 1) {
-              currentBlockxy[i][0]+= (i-1);
-              currentBlockxy[i][1] = currentBlockxy[1][1];
-              grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = new Block(col, true);
-            }
-          }
-          turns--;
-        }
-      }
-    }
-    clearPreview();
-    makePreview();
-  }
+
+//  void rotateCounter() {
+//    color col = grid[currentBlockxy[0][0]][currentBlockxy[0][1]].c;
+//    if (canRotate(col)) {
+//      for (int i = 0; i < 4; i++) {
+//        grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = null;
+//      }
+//      if (col == I) {
+//        grid[currentBlockxy[1][0]][currentBlockxy[1][1]] = new Block(col, true);
+//        if (turns == 1) {
+//          for (int i = 0; i<4; i++) {
+//            if (i != 1) {
+//              currentBlockxy[i][1]+= (i-1);
+//              currentBlockxy[i][0] = currentBlockxy[1][0];
+//              grid[currentBlockxy[1][0]][currentBlockxy[i][1]] = new Block(col, true);
+//            }
+//          }
+//          turns++;
+//        } else {
+//          for (int i = 0; i<4; i++) {
+//            if (i != 1) {
+//              currentBlockxy[i][0]+= (i-1);
+//              currentBlockxy[i][1] = currentBlockxy[1][1];
+//              grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = new Block(col, true);
+//            }
+//          }
+//          turns--;
+//        }
+//      } else if (col == J && canRotateJ()) {
+//        grid[currentBlockxy[1][0]][currentBlockxy[1][1]] = new Block(col, true);
+//        if (turns == 1) {
+//          for (int i = 0; i<4; i++) {
+//            if (i != 1) {
+//              currentBlockxy[i][1]+= (i-1);
+//              currentBlockxy[i][0] = currentBlockxy[1][0];
+//              grid[currentBlockxy[1][0]][currentBlockxy[i][1]] = new Block(col, true);
+//            }
+//          }
+//          turns++;
+//        } else {
+//          for (int i = 0; i<4; i++) {
+//            if (i != 1) {
+//              currentBlockxy[i][0]+= (i-1);
+//              currentBlockxy[i][1] = currentBlockxy[1][1];
+//              grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = new Block(col, true);
+//            }
+//          }
+//          turns--;
+//        }
+//      }
+//    }
+//    clearPreview();
+//    makePreview();
+//  }
 }

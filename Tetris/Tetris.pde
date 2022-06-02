@@ -65,35 +65,31 @@ void draw() {
 
 
 void keyPressed() {
-  
-  switch (key){
-    case 'a':
-      map.moveLeft();
-      break;
-    case 'd':
-      map.moveRight();
-      break;
-    case ' ':
-      map.dropDown();
-      break;
-    case 'w':
-      map.rotateCounter();
-      break;
-    case 's':
-      map.moveDown();
-      break;
-    case 'p':
-      pause();
-      break;
-    case 8:
-      score = 0;
-      map.clearTable();
-      map.add(pieces.nextBlock);
-      pieces.getNextBlock(false);
-      lose = false;
-      map.clearPreview();
-      map.makePreview();
-      break;
+
+  switch (key) {
+  case 'a':
+    map.moveLeft();
+    break;
+  case 'd':
+    map.moveRight();
+    break;
+  case ' ':
+    map.dropDown();
+    break;
+  case 'w':
+    //map.rotateCounter();
+    break;
+  case 's':
+    map.moveDown();
+    break;
+  case 'p':
+    pause();
+    break;
+  case 8:
+    score = 0;
+    map.clearTable();
+    add();
+    break;
   }
 }
 
@@ -117,4 +113,11 @@ void drawGrid(Block[][] ary, int x, int y) {
       stroke(150);
     }
   }
+}
+
+void add() {
+  map.add(pieces.nextBlock);
+  pieces.getNextBlock(false);
+  map.clearPreview();
+  map.makePreview();
 }
