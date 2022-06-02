@@ -225,34 +225,26 @@ public class Grid {
       currentBlockxy[i][1] = previewBlockxy[i][1];
     }
   }
-  
-  boolean canRotateI() {
-    if (turns == 1) {
-    } else {
-    }
-    return true;
-  }
-  boolean canRotateJ() {
-    if (turns == 1) {
-    } else {
-    }
-    return true;
-  }
-  boolean canRotateL() {
-    if (turns == 1) {
-    } else {
-    }
-    return true;
-  }
-  boolean canRotateS() {
-    if (turns == 1) {
-    } else {
-    }
-    return true;
-  }
-  boolean canRotateZ() {
-    if (turns == 1) {
-    } else {
+  boolean canRotate(color col){
+    if (col == O) return false;
+    if (col == I){
+      if(turns==1){
+          for(int i = 0; i<4;i++){
+            if (currentBlockxy[i][1]+(i-1) <0 || currentBlockxy[i][1]+(i-1) >=w) return false;
+            if ((i != 1 && grid[currentBlockxy[i][0]][currentBlockxy[i][1]+(i-1)] != null)){
+              return false;
+            }
+          }
+      } else{
+          for(int i = 0; i<4;i++){
+            if (currentBlockxy[i][0]+(i-1) <0 || currentBlockxy[i][0]+(i-1) >=h) return false;
+            if ((i!= 1 && grid[currentBlockxy[i][0]+(i-1)][currentBlockxy[i][1]] != null)){
+              return false;
+            }
+          }
+      }
+    } else{
+      return false;
     }
     return true;
   }
@@ -265,19 +257,19 @@ public class Grid {
   
   void rotateCounter() {
     color col = grid[currentBlockxy[0][0]][currentBlockxy[0][1]].c;
-    if (col != O) {
-      for (int i = 0; i < 4; i++) {
+    if (canRotate(col)){
+      for(int i = 0 ; i < 4; i++){
         grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = null;
       }
-      if (col == I && canRotateI()) {
-        grid[currentBlockxy[1][0]][currentBlockxy[1][1]] = new Block(col, true);
-        if (turns == 1) {
-          for (int i = 0; i<4; i++) {
-            if (i != 1) {
-              currentBlockxy[i][1]+= (i-1);
-              currentBlockxy[i][0] = currentBlockxy[1][0];
-              grid[currentBlockxy[1][0]][currentBlockxy[i][1]] = new Block(col, true);
-            }
+      if (col == I){
+        grid[currentBlockxy[1][0]][currentBlockxy[1][1]] = new Block(col,true);
+        if (turns == 1){
+          for(int i = 0; i<4;i++){
+             if (i != 1){
+               currentBlockxy[i][1]+= (i-1);
+               currentBlockxy[i][0] = currentBlockxy[1][0];
+               grid[currentBlockxy[1][0]][currentBlockxy[i][1]] = new Block(col,true);
+             }
           }
           turns++;
         } else {

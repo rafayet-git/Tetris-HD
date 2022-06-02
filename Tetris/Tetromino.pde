@@ -7,7 +7,7 @@ public class Tetromino{
     nextBlock = new Block[4][3];
     QueuedBlocks = new ArrayDeque<Character>();
     refill();
-    getNextBlock();
+    getNextBlock(false);
   }
   void refill(){ // refill the block queue if empty
      Character[] blocks = {'I','O','T','S','L','Z','J'};
@@ -17,12 +17,11 @@ public class Tetromino{
        QueuedBlocks.add(shuffler.get(i));  
      }
   }
-
-  void getNextBlock(){ // do grid.add before this
+  void getNextBlock(boolean keepBlock){ // do grid.add before this
     for(Block[] temp : nextBlock){
       Arrays.fill(temp, null);
     }
-    if (QueuedBlocks.size() >= 1) refill();
+    if (QueuedBlocks.size() <= 4) refill();
     char currentet = QueuedBlocks.removeFirst();
     switch(currentet){
       case 'I':
@@ -89,5 +88,8 @@ public class Tetromino{
     nextBlock[3][0] = new Block(J);
     nextBlock[3][1] = new Block(J);
     nextBlock[3][2] = new Block(J);
+  }
+  Block[][] genNextBlocks(){
+    
   }
 }
