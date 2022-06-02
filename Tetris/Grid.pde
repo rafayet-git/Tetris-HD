@@ -28,7 +28,7 @@ public class Grid {
       for (int i=0;i<4;i++) {
         for (int j=0;j<2;j++) {
           holdBlock[i][j] = currentBlockxy[i][j];
-          piece = piece.getNextBlock();
+          piece.getNextBlock();
           currentBlockxy[i][j] = 
         }
       }
