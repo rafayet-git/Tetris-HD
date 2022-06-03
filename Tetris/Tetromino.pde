@@ -54,11 +54,6 @@ public class Tetromino{
         break;
     }
   }
-  void genNextBlocks(){
-    if (!hasNext){
-      
-    }
-  }
 }
 
   Block[][] makeI(){
