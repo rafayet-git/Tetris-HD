@@ -117,3 +117,27 @@ public class Tetromino{
     tm[3][2] = new Block(J);
     return tm;
   }
+  Block[][] makeHoldBlock(color aa){
+    if (aa == I){
+      return makeI();
+    }
+    if (aa == O){
+      return makeO();
+    }
+    if (aa == T){
+      return makeT();
+    }
+    if (aa == S){
+      return makeS();
+    }
+    if (aa == L){
+      return makeL();
+    }
+    if (aa == Z){
+      return makeZ();
+    }
+    if (aa == J){
+      return makeJ();
+    }
+    return new Block[4][3];
+  }
