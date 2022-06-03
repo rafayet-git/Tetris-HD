@@ -89,7 +89,5 @@ public class Tetromino{
     nextBlock[3][1] = new Block(J);
     nextBlock[3][2] = new Block(J);
   }
-  Block[][] genNextBlocks(){
-    
-  }
+
 }

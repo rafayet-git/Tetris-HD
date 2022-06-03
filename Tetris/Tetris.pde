@@ -71,7 +71,10 @@ void keyPressed() {
       map.dropDown();
       break;
     case 'w':
-      map.rotateCounter();
+      map.rotateCounter(false);
+      break;
+    case 'e':
+      map.rotateCounter(true);
       break;
     case 's':
       map.moveDown();
@@ -109,4 +112,11 @@ void drawGrid(Block[][] ary, int x, int y){
     stroke(150);
    }
   }
+}
+
+void adds(){
+  map.add(pieces.nextBlock);
+  pieces.getNextBlock(false);
+  map.clearPreview();
+  map.makePreview();
 }
