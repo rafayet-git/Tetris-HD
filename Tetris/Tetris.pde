@@ -20,7 +20,7 @@ void setup() {
   map = new Grid();
   pieces = new Tetromino();
   map.add(pieces.nextBlock);
-  pieces.getNextBlock(false);
+  pieces.getNextBlock();
   score = 0;
   delay = 60;
   map.clearPreview();
@@ -44,7 +44,7 @@ void draw() {
       linesRemoved += 1;
       if (map.checkLost()) lose = true;
       map.add(pieces.nextBlock);
-      pieces.getNextBlock(false);
+      pieces.getNextBlock();
       map.clearPreview();
       map.makePreview();
     }
@@ -90,7 +90,7 @@ void keyPressed() {
     case 8:
       score = 0;
       map.clearTable();
-      add();
+      addBlock();
       break;
   }
 }
@@ -117,9 +117,9 @@ void drawGrid(Block[][] ary, int x, int y) {
   }
 }
 
-void add() {
+void addBlock() {
   map.add(pieces.nextBlock);
-  pieces.getNextBlock(false);
+  pieces.getNextBlock();
   map.clearPreview();
   map.makePreview();
 }
