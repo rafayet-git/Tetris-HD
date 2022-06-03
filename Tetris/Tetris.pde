@@ -35,8 +35,10 @@ void draw() {
     text("Next", 245, 15);
     ;
     text("Score: " + score, 220, 120);
+    text("Hold",315,15);
     drawGrid(map.grid, 0, 0);
     drawGrid(pieces.nextBlock, 228, 20);
+    drawGrid(pieces.nextBlock, 300, 20);
     if (map.canLockIn()) {
       score+=20;
       map.clearCurrentBool();
