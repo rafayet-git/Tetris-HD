@@ -2,13 +2,19 @@ import java.util.*;
 public class Tetromino{
   ArrayDeque<Character> QueuedBlocks;
   Block[][] nextBlock;
-  //Block[][] holdBlock; I have no idea how hold works in tetris
+  color holdBlock;
+  
   public Tetromino(){
     nextBlock = new Block[4][3];
     QueuedBlocks = new ArrayDeque<Character>();
     refill();
     getNextBlock(false);
   }
+  
+  void holdBlock() {
+    holdBlock = 
+  }
+  
   void refill(){ // refill the block queue if empty
      Character[] blocks = {'I','O','T','S','L','Z','J'};
      List<Character> shuffler = Arrays.asList(blocks);
@@ -90,4 +96,7 @@ public class Tetromino{
     nextBlock[3][2] = new Block(J);
   }
 
+  //Block[][] genNextBlocks(){
+    
+  //}
 }
