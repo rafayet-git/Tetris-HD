@@ -43,6 +43,8 @@ I started on rotate, working on rotating current blocks
 *6/1:*\
 I finished rotation of all pieces, made the tetris pieces save the y coordinate when adding new blocks
 
+*6/2:*\
+I made the make functions on tetromino local, so they can be used on other functions
 
 ### Wing Jiang
 
