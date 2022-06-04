@@ -7,6 +7,7 @@ public class Tetromino{
   
   public Tetromino(){
     nextBlock = new Block[4][3];
+    holdBlock = new Block[4][3];
     QueuedBlocks = new ArrayDeque<Character>();
     refill();
     getNextBlock();
