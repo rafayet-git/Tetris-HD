@@ -2,7 +2,8 @@ import java.util.*;
 public class Tetromino{
   ArrayDeque<Character> QueuedBlocks;
   Block[][] nextBlock;
-  color holdBlock;
+  Block[][] holdBlock;
+  boolean hasNext;
   
   public Tetromino(){
     nextBlock = new Block[4][3];
@@ -53,6 +54,8 @@ public class Tetromino{
         break;
     }
   }
+}
+
   Block[][] makeI(){
     Block[][] tm = new Block[4][3];
     tm[3][0] = new Block(I);
@@ -93,7 +96,7 @@ public class Tetromino{
     tm[2][2] = new Block(L);
     return tm;
   }
-  Block[][] makeZ(){
+   Block[][] makeZ(){
     Block[][] tm = new Block[4][3];
     tm[2][0] = new Block(Z);
     tm[2][1] = new Block(Z);
@@ -101,7 +104,7 @@ public class Tetromino{
     tm[3][2] = new Block(Z);
     return tm;
   }
-  Block[][] makeJ(){
+   Block[][] makeJ(){
     Block[][] tm = new Block[4][3];
     tm[2][0] = new Block(J);
     tm[3][0] = new Block(J);
@@ -109,7 +112,27 @@ public class Tetromino{
     tm[3][2] = new Block(J);
     return tm;
   }
-  //Block[][] genNextBlocks(){
-    
-  //}
-}
+  Block[][] makeHoldBlock(color aa){
+    if (aa == I){
+      return makeI();
+    }
+    if (aa == O){
+      return makeO();
+    }
+    if (aa == T){
+      return makeT();
+    }
+    if (aa == S){
+      return makeS();
+    }
+    if (aa == L){
+      return makeL();
+    }
+    if (aa == Z){
+      return makeZ();
+    }
+    if (aa == J){
+      return makeJ();
+    }
+    return new Block[4][3];
+  }

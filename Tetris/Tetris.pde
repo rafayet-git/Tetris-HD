@@ -91,6 +91,7 @@ void keyPressed() {
       score = 0;
       map.clearTable();
       addBlock();
+      lose = false;
       break;
   }
 }
