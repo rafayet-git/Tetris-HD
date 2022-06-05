@@ -53,7 +53,7 @@ void draw() {
       level += 1;
     }
     if (delay <= 0) {
-      delay = 60 - level * 5;
+      delay = 60 - level * 3;
       map.moveDown();
     }
     delay -= 1+pow(1.0009, score);
