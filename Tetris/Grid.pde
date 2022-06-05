@@ -58,6 +58,9 @@ public class Grid {
         cenY = currentBlockxy[2][1];
     }  
   }
+  void replace(Block[][] hold){
+    
+  }
   void removeRow(int row) {
     for (int i = 0; i < grid[row].length; i++) { // remove current row
       grid[row][i] = null;
