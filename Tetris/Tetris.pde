@@ -1,11 +1,12 @@
 Grid map;
 int score;
-int mode;
+int mode = 0;
 Tetromino pieces;
 boolean lose = false;
 float delay = 60;
 int linesRemoved = 0;
 int level = 1;
+
 
 final color I = color(52, 235, 222);
 final color O = color(255, 247, 0);
@@ -29,50 +30,21 @@ void setup() {
 }
 
 void draw() {
-  drawMain();
-  if (!lose) {
-    background(0);
-    fill(255);
-    text("Next", 245, 15);
-    text("Hold", 245, 170);
-    text("Score: " + score, 220, 120);
-    text("Hold", 315, 15);
-    drawGrid(map.grid, 0, 0);
-    drawGrid(pieces.nextBlock, 228, 20);
-    drawGrid(pieces.holdBlock, 228, 180);
-    if (map.canLockIn()) {
-      score+=20;
-      map.clearCurrentBool();
-      map.removeFullRows();
-      linesRemoved += 1;
-      if (map.checkLost()) lose = true;
-      map.add(pieces.nextBlock);
-      pieces.getNextBlock();
-      map.clearPreview();
-      map.makePreview();
-    }
-    if (linesRemoved == 10*(level+1)) {
-      level += 1;
-    }
-    if (delay <= 0) {
-      delay = 60 - level * 5;
-      map.moveDown();
-    }
-    delay -= 1+pow(1.0009, score);
-  } else {
-    fill(255, 0, 0);
-    text("Game Over!", 220, 135);
-    text("Press Backspace to restart", 220, 150);
+  if (mode == 0) {
+    drawMain();
+  }
+  if (mode == 1) {
+    playClassic();
   }
 }
 void playClassic() {
   if (!lose) {
     background(0);
     fill(255);
+    textSize(15);
     text("Next", 245, 15);
     text("Hold", 245, 170);
     text("Score: " + score, 220, 120);
-    text("Hold", 315, 15);
     drawGrid(map.grid, 0, 0);
     drawGrid(pieces.nextBlock, 228, 20);
     drawGrid(pieces.holdBlock, 228, 180);
@@ -103,7 +75,7 @@ void playClassic() {
 }
 void mouseClicked() {
   if (mouseX>125 && mouseX<275 && mouseY>200 && mouseY<240) {
-    playClassic();
+    mode=1;
   }
 }
 void keyPressed() {
