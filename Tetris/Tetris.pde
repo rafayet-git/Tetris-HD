@@ -29,13 +29,14 @@ void setup() {
 }
 
 void draw() {
+  drawMain();
   if (!lose) {
     background(0);
     fill(255);
     text("Next", 245, 15);
     text("Hold", 245, 170);
     text("Score: " + score, 220, 120);
-    text("Hold",315,15);
+    text("Hold", 315, 15);
     drawGrid(map.grid, 0, 0);
     drawGrid(pieces.nextBlock, 228, 20);
     drawGrid(pieces.holdBlock, 228, 180);
@@ -67,34 +68,34 @@ void draw() {
 
 
 void keyPressed() {
-  switch (key){
-    case 'a':
-      map.moveLeft();
-      break;
-    case 'd':
-      map.moveRight();
-      break;
-    case ' ':
-      map.dropDown();
-      break;
-    case 'w':
-      map.rotateCounter(false);
-      break;
-    case 'e':
-      map.rotateCounter(true);
-      break;
-    case 's':
-      map.moveDown();
-      break;
-    case 'p':
-      pause();
-      break;
-    case 8:
-      score = 0;
-      map.clearTable();
-      addBlock();
-      lose = false;
-      break;
+  switch (key) {
+  case 'a':
+    map.moveLeft();
+    break;
+  case 'd':
+    map.moveRight();
+    break;
+  case ' ':
+    map.dropDown();
+    break;
+  case 'w':
+    map.rotateCounter(false);
+    break;
+  case 'e':
+    map.rotateCounter(true);
+    break;
+  case 's':
+    map.moveDown();
+    break;
+  case 'p':
+    pause();
+    break;
+  case 8:
+    score = 0;
+    map.clearTable();
+    addBlock();
+    lose = false;
+    break;
   }
 }
 
@@ -125,4 +126,16 @@ void addBlock() {
   pieces.getNextBlock();
   map.clearPreview();
   map.makePreview();
+}
+
+void drawMain() {
+  background(0);
+  textSize(50);
+  fill(255);
+  text("Tetris", 125, 100);
+  fill(200,60,30);
+  rect(125, 200, 150, 40);
+  textSize(30);
+  fill(0);
+  text("Classic",150,230);
 }
