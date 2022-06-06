@@ -65,8 +65,47 @@ void draw() {
     text("Press Backspace to restart", 220, 150);
   }
 }
-
-
+void playClassic() {
+  if (!lose) {
+    background(0);
+    fill(255);
+    text("Next", 245, 15);
+    text("Hold", 245, 170);
+    text("Score: " + score, 220, 120);
+    text("Hold", 315, 15);
+    drawGrid(map.grid, 0, 0);
+    drawGrid(pieces.nextBlock, 228, 20);
+    drawGrid(pieces.holdBlock, 228, 180);
+    if (map.canLockIn()) {
+      score+=20;
+      map.clearCurrentBool();
+      map.removeFullRows();
+      linesRemoved += 1;
+      if (map.checkLost()) lose = true;
+      map.add(pieces.nextBlock);
+      pieces.getNextBlock();
+      map.clearPreview();
+      map.makePreview();
+    }
+    if (linesRemoved == 10*(level+1)) {
+      level += 1;
+    }
+    if (delay <= 0) {
+      delay = 60 - level * 5;
+      map.moveDown();
+    }
+    delay -= 1+pow(1.0009, score);
+  } else {
+    fill(255, 0, 0);
+    text("Game Over!", 220, 135);
+    text("Press Backspace to restart", 220, 150);
+  }
+}
+void mouseClicked() {
+  if (mouseX>125 && mouseX<275 && mouseY>200 && mouseY<240) {
+    playClassic();
+  }
+}
 void keyPressed() {
   switch (key) {
   case 'a':
@@ -133,9 +172,9 @@ void drawMain() {
   textSize(50);
   fill(255);
   text("Tetris", 125, 100);
-  fill(200,60,30);
+  fill(200, 60, 30);
   rect(125, 200, 150, 40);
   textSize(30);
   fill(0);
-  text("Classic",150,230);
+  text("Classic", 150, 230);
 }
