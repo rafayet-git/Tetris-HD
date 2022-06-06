@@ -1,5 +1,5 @@
 import java.util.*;
-public class Tetromino{
+public class Tetromino {
   ArrayDeque<Character> QueuedBlocks;
   Block[][] nextBlock;
   Block[][] holdBlock;
@@ -12,18 +12,17 @@ public class Tetromino{
     refill();
     getNextBlock();
   }
-  
-  void holdBlock() {
-    //holdBlock = 
-  }
-  
-  void refill(){ // refill the block queue if empty
-     Character[] blocks = {'I','O','T','S','L','Z','J'};
-     List<Character> shuffler = Arrays.asList(blocks);
-     Collections.shuffle(shuffler);
-     for(int i = 0; i < shuffler.size();i++){
-       QueuedBlocks.add(shuffler.get(i));  
-     }
+  // void holdBlock() {
+  //   holdBlock = nextBlock[0][1].c;
+  // }
+
+  void refill() { // refill the block queue if empty
+    Character[] blocks = {'I', 'O', 'T', 'S', 'L', 'Z', 'J'};
+    List<Character> shuffler = Arrays.asList(blocks);
+    Collections.shuffle(shuffler);
+    for (int i = 0; i < shuffler.size(); i++) {
+      QueuedBlocks.add(shuffler.get(i));
+    }
   }
   void getNextBlock(){ // do grid.add before this
     for(Block[] temp : nextBlock){

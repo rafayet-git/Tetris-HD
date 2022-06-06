@@ -35,6 +35,7 @@ void draw() {
     text("Next", 245, 15);
     text("Hold", 245, 170);
     text("Score: " + score, 220, 120);
+    text("Hold",315,15);
     drawGrid(map.grid, 0, 0);
     drawGrid(pieces.nextBlock, 228, 20);
     drawGrid(pieces.holdBlock, 228, 180);
