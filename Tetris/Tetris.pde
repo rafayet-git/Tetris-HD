@@ -52,11 +52,11 @@ void draw() {
     }else{
      toBePressed = false; 
     }
-    if (linesRemoved == 10*(level+1)) {
+    if (linesRemoved == 10*(level)) {
       level += 1;
     }
     if (delay <= 0) {
-      delay = 60 - level * 5;
+      delay = 60 - ((level-1) * 2);
       if (!toBePressed){
         map.moveDown();
       }else{
@@ -70,7 +70,7 @@ void draw() {
         map.makePreview();
       }
     }
-    delay -= 1+pow(1.0009, score);
+    delay -= 1+pow(1.00009, score);
   } else if (paused){
     fill(255, 255, 0);
     text("Paused", 320, 120);
@@ -101,7 +101,7 @@ void keyPressed() {
       map.rotateCounter(true);
       break;
     case 's':
-      delay = 60 - level * 5;
+      delay = 60 - ((level-1) * 2);
       map.moveDown();
       break;
     case 'p':
