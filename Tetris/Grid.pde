@@ -90,6 +90,7 @@ public class Grid {
         cenX++;
       }
     }
+    linesRemoved+=amt;
     score += (100*pow(amt, 2));
   }
 
