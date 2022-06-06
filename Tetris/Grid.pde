@@ -147,6 +147,7 @@ public class Grid {
       clearPreview();
       makePreview();
       cenY--;
+      if(toBePressed)delay = 60 - ((level-1) * 2);
       if (blockLocation>=1)blockLocation--;
     }
   }
@@ -166,6 +167,7 @@ public class Grid {
       clearPreview();
       makePreview();
       cenY++;
+      if(toBePressed) delay = 60 - ((level-1) * 2);
       if (blockLocation<7)blockLocation++;
     }
   }
@@ -317,7 +319,7 @@ public class Grid {
         }
       }
     }
-      delay = 60;
+      if(toBePressed) delay = 60 - ((level-1) * 2);
       clearPreview();
       makePreview();
   }

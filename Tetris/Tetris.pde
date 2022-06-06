@@ -8,7 +8,6 @@ float delay = 60;
 int linesRemoved = 0;
 int level = 1;
 boolean toBePressed;
-boolean drawdelay;
 
 final color I = color(52, 235, 222);
 final color O = color(255, 247, 0);
@@ -27,7 +26,6 @@ void setup() {
   score = 0;
   delay = 60;
   toBePressed = false;
-  drawdelay = false;
   paused = false;
   map.clearPreview();
   map.makePreview();
@@ -119,11 +117,6 @@ void keyPressed() {
 }
 
 void drawGrid(Block[][] ary, int x, int y) {
-  if (drawdelay){
-   drawdelay = false; 
-  } else{
-   drawdelay = true; 
-  }
   for (int i = 0; i < ary.length; i++) {
     for (int j = 0; j<ary[0].length; j++) {
       if (ary[i][j] == null) {
@@ -134,17 +127,14 @@ void drawGrid(Block[][] ary, int x, int y) {
         }
       } else if (!ary[i][j].isPreview) {
         if(toBePressed && ary[i][j].isCurrent){
-          if (drawdelay){
-            fill(0);
-          } else{
-           fill(ary[i][j].c);          
-          }
+          color a = ary[i][j].c;
+          fill(color(red(a), green(a), blue(a), (delay*4.25)));
         } else{
            fill(ary[i][j].c);          
         }
       } else {
         color a = ary[i][j].c;
-        fill(color(red(a), green(a), blue(a), 150));
+        fill(color(red(a), green(a), blue(a), 140));
       }
       strokeWeight(2);
       rect((j*map.size)+x, i*map.size+y, map.size, map.size);
