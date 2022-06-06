@@ -6,6 +6,8 @@ boolean lose = false;
 float delay = 60;
 int linesRemoved = 0;
 int level = 1;
+boolean toBePressed;
+boolean drawdelay;
 
 final color I = color(52, 235, 222);
 final color O = color(255, 247, 0);
@@ -23,6 +25,8 @@ void setup() {
   pieces.getNextBlock();
   score = 0;
   delay = 60;
+  toBePressed = false;
+  drawdelay = false;
   map.clearPreview();
   map.makePreview();
   fill(255);
@@ -40,22 +44,29 @@ void draw() {
     drawGrid(pieces.nextBlock, 228, 20);
     drawGrid(pieces.holdBlock, 228, 180);
     if (map.canLockIn()) {
-      score+=20;
-      map.clearCurrentBool();
-      map.removeFullRows();
-      linesRemoved += 1;
-      if (map.checkLost()) lose = true;
-      map.add(pieces.nextBlock);
-      pieces.getNextBlock();
-      map.clearPreview();
-      map.makePreview();
+      toBePressed = true;
+
+    }else{
+     toBePressed = false; 
     }
     if (linesRemoved == 10*(level+1)) {
       level += 1;
     }
     if (delay <= 0) {
       delay = 60 - level * 5;
-      map.moveDown();
+      if (!toBePressed){
+        map.moveDown();
+      }else{
+        score+=20;
+        map.clearCurrentBool();
+        map.removeFullRows();
+        linesRemoved += 1;
+        if (map.checkLost()) lose = true;
+        map.add(pieces.nextBlock);
+        pieces.getNextBlock();
+        map.clearPreview();
+        map.makePreview();
+      }
     }
     delay -= 1+pow(1.0009, score);
   } else {
@@ -107,16 +118,17 @@ void drawGrid(Block[][] ary, int x, int y) {
         } else {
           fill(0);
         }
-      } else if (!ary[i][j].isPreview) {
+      } else if (!ary[i][j].isPreview && !toBePressed) {
         fill(ary[i][j].c);
       } else {
         color a = ary[i][j].c;
         fill(color(red(a), green(a), blue(a), 150));
       }
       strokeWeight(2);
-      rect(j*map.size+x, i*map.size+y, map.size, map.size);
+      rect((j*map.size)+x, i*map.size+y, map.size, map.size);
       stroke(150);
     }
+    y++;
   }
 }
 
