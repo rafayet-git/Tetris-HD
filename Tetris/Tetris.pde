@@ -112,7 +112,7 @@ void keyPressed() {
       map.rotateCounter(true);
       break;
     case 's':
-      delay = 60 - ((level-1) * 2);
+      if (!toBePressed) delay = 60 - ((level-1) * 2);
       map.moveDown();
       break;
     case 'q':
@@ -134,7 +134,8 @@ void keyPressed() {
       break;
   }
 }
-
+int ticker = 15;
+boolean t = true;
 void drawGrid(Block[][] ary, int x, int y) {
   for (int i = 0; i < ary.length; i++) {
     for (int j = 0; j<ary[0].length; j++) {
@@ -144,10 +145,12 @@ void drawGrid(Block[][] ary, int x, int y) {
         } else {
           fill(0);
         }
-      } else if (!ary[i][j].isPreview) {
+      } else if (!ary[i][j].isPreview ) {
         if(toBePressed && ary[i][j].isCurrent){
-          color a = ary[i][j].c;
-          fill(color(red(a), green(a), blue(a), (delay*4.25)));
+          if (t){fill(ary[i][j].c);} else{
+            color a = ary[i][j].c;
+            fill(color(red(a), green(a), blue(a), 100));
+          }
         } else{
            fill(ary[i][j].c);          
         }
@@ -161,6 +164,12 @@ void drawGrid(Block[][] ary, int x, int y) {
     }
     y++;
   }
+  if (ticker <= 0){
+    ticker = 15;
+    if (t){
+      t = false;
+    }else {t = true;}
+  }else {ticker--;}
 }
 
 void addBlock() {
