@@ -27,7 +27,6 @@ void setup() {
   delay = 60;
   toBePressed = false;
   paused = false;
-  map.clearPreview();
   map.makePreview();
   fill(255);
 }
@@ -64,8 +63,8 @@ void draw() {
         if (map.checkLost()) lose = true;
         map.add(pieces.nextBlock);
         pieces.getNextBlock();
-        map.clearPreview();
         map.makePreview();
+        pieces.canHold = true;
       }
     }
     delay -= 1+pow(1.00009, score);
@@ -102,6 +101,9 @@ void keyPressed() {
       delay = 60 - ((level-1) * 2);
       map.moveDown();
       break;
+    case 'q':
+      holdBlock();
+      break;
     case 'p':
       pause();
       break;
@@ -112,6 +114,9 @@ void keyPressed() {
       map.clearTable();
       addBlock();
       lose = false;
+      pieces.canHold = true;
+      pieces.hasHold = false;
+      pieces.clearHold();
       break;
   }
 }
@@ -147,7 +152,6 @@ void drawGrid(Block[][] ary, int x, int y) {
 void addBlock() {
   map.add(pieces.nextBlock);
   pieces.getNextBlock();
-  map.clearPreview();
   map.makePreview();
 }
 
@@ -156,5 +160,25 @@ void pause(){
      paused = false; 
   } else{
    paused = true; 
+  }
+}
+
+void holdBlock(){
+  if (pieces.canHold){
+    color temp = map.getColor();
+    if (pieces.hasHold){
+      map.removeCurrentBlocks();
+      map.add(pieces.holdBlock);
+      pieces.holdBlock = makeBlock(temp);
+      pieces.canHold = false;
+    }else{
+      map.removeCurrentBlocks();
+      pieces.holdBlock = makeBlock(temp);
+      map.add(pieces.nextBlock);
+      pieces.getNextBlock();
+      pieces.canHold = false;
+      pieces.hasHold = true;
+    }
+    map.makePreview();
   }
 }
