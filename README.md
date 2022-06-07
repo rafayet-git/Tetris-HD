@@ -49,7 +49,7 @@ I made the make functions on tetromino local, so they can be used on other funct
 *6/3:*\
 I made the blocks have a cooldown before being fully placed, and adjusted design
 
-*6/4:*\
+*6/6:*\
 I added holding blocks for future use
 
 ### Wing Jiang
