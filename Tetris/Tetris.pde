@@ -1,6 +1,6 @@
 Grid map;
 int score;
-int mode;
+int mode = 0;
 Tetromino pieces;
 boolean lose = false;
 boolean paused;
@@ -8,6 +8,7 @@ float delay = 60;
 int linesRemoved = 0;
 int level = 1;
 boolean toBePressed;
+
 
 final color I = color(52, 235, 222);
 final color O = color(255, 247, 0);
@@ -32,9 +33,18 @@ void setup() {
 }
 
 void draw() {
+  if (mode == 0) {
+    drawMain();
+  }
+  if (mode == 1) {
+    playClassic();
+  }
+}
+void playClassic() {
   if (!lose && !paused) {
     background(0);
     fill(255);
+    textSize(15);
     text("Next", 245, 15);
     text("Hold", 335, 15);
     text("Level: " + level, 220, 135);
@@ -77,9 +87,13 @@ void draw() {
     text("Press Backspace to restart", 220, 170);
   }
 }
-
-
+void mouseClicked() {
+  if (mouseX>125 && mouseX<275 && mouseY>200 && mouseY<240) {
+    mode=1;
+  }
+}
 void keyPressed() {
+  if (mode != 0)
   switch (key){
     case 'a':
       map.moveLeft();
@@ -181,4 +195,15 @@ void holdBlock(){
     }
     map.makePreview();
   }
+}
+void drawMain(){
+  background(0);
+  textSize(50);
+  fill(255);
+  text("Tetris", 125, 100);
+  fill(200, 60, 30);
+  rect(125, 200, 150, 40);
+  textSize(30);
+  fill(0);
+  text("Classic", 150, 230);
 }
