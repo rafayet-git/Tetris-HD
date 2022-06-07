@@ -1,6 +1,6 @@
 Grid map;
 int score;
-int mode = 0;
+int mode = 2;
 Tetromino pieces;
 boolean lose = false;
 boolean paused;
@@ -46,17 +46,13 @@ void draw() {
 void play40() {
   int s = second();
   int m = millis();
-  if (!lose && !paused) {
-    if (linesRemoved>=40) {
-      fill(255, 0, 0);
-      text("Clear Time: "+s+"."+m+" seconds!", 220, 155);
-      text("Press Backspace to restart", 220, 170);
-    }
+  if (!lose && !paused && linesRemoved<40) {
     background(0);
     fill(255);
     textSize(15);
     text("Next", 245, 15);
     text("Hold", 335, 15);
+    text("Time: "+s+"."+m+"sec", 220, 120);
     text("Lines: " + linesRemoved, 300, 135);
     drawGrid(map.grid, 0, 0);
     drawGrid(pieces.nextBlock, 228, 20);
@@ -84,6 +80,10 @@ void play40() {
   } else if (paused) {
     fill(255, 255, 0);
     text("Paused", 320, 120);
+  } else if (linesRemoved >= 40) {
+    fill(255, 0, 0);
+    text("Clear Time: "+s+"."+m+" seconds!", 220, 190);
+    text("Press Backspace to restart", 220, 200);
   } else {
     fill(255, 0, 0);
     text("Game Over!", 220, 155);
@@ -139,6 +139,9 @@ void playClassic() {
 void mouseClicked() {
   if (mouseX>125 && mouseX<275 && mouseY>200 && mouseY<240) {
     mode=1;
+  }
+  if (mouseX>125 && mouseX<275 && mouseY>260 && mouseY<300) {
+    mode=2;
   }
 }
 void keyPressed() {
@@ -252,7 +255,11 @@ void drawMain() {
   text("Tetris", 125, 100);
   fill(200, 60, 30);
   rect(125, 200, 150, 40);
-  textSize(30);
+  textSize(25);
   fill(0);
-  text("Classic", 150, 230);
+  text("Classic", 160, 230);
+  fill(200, 60, 30);
+  rect(125, 260, 150, 40);
+  fill(0);
+  text("40 Lines", 150, 290);
 }
