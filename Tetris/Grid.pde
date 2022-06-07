@@ -24,7 +24,14 @@ public class Grid {
     this(20, 10, 20);
   }
   
-  
+  void removeCurrentBlocks(){
+    for (int i = 0; i < 4; i++){
+      grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = null; 
+    }
+  }
+  color getColor(){
+    return grid[currentBlockxy[0][0]][currentBlockxy[0][1]].c;
+  }
   void clearCurrentBool() {
     for (int i = 0; i<4; i++) {
       if (grid[currentBlockxy[i][0]][currentBlockxy[i][1]] != null)grid[currentBlockxy[i][0]][currentBlockxy[i][1]].isCurrent = false;
@@ -90,6 +97,7 @@ public class Grid {
         cenX++;
       }
     }
+    linesRemoved+=amt;
     score += (100*pow(amt, 2));
   }
 
@@ -131,7 +139,7 @@ public class Grid {
 
   void moveLeft() {
     if (canMoveLeft()) {
-      clearPreview();
+       
       color col = grid[currentBlockxy[0][0]][currentBlockxy[0][1]].c;    
       for (int i = 0; i<4; i++) {
         grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = null;
@@ -143,9 +151,10 @@ public class Grid {
           currentBlockxy[i][1]--;
         }
       }
-      clearPreview();
+       
       makePreview();
       cenY--;
+      if(toBePressed)delay = 60 - ((level-1) * 2);
       if (blockLocation>=1)blockLocation--;
     }
   }
@@ -162,9 +171,10 @@ public class Grid {
           currentBlockxy[i][1]++;
         }
       }
-      clearPreview();
+       
       makePreview();
       cenY++;
+      if(toBePressed) delay = 60 - ((level-1) * 2);
       if (blockLocation<7)blockLocation++;
     }
   }
@@ -180,7 +190,7 @@ public class Grid {
         currentBlockxy[i][0]++;
       }
       cenX++;
-      clearPreview();
+       
       makePreview();
     }
   }
@@ -195,6 +205,9 @@ public class Grid {
     return false;
   }
   void makePreview() {
+    for (int i = 0; i<4; i++) { //set preview blocks to null
+      if (grid[previewBlockxy[i][0]][previewBlockxy[i][1]] != null && grid[previewBlockxy[i][0]][previewBlockxy[i][1]].isPreview == true) grid[previewBlockxy[i][0]][previewBlockxy[i][1]] = null;
+    }
     color newcolor = grid[currentBlockxy[0][0]][currentBlockxy[0][1]].c;
     int min = Integer.MAX_VALUE;
     for (int i = 0; i<4; i++) { // set preview coords to current
@@ -215,11 +228,7 @@ public class Grid {
       }
     }
   }
-  void clearPreview() {
-    for (int i = 0; i<4; i++) { //set preview blocks to null
-      if (grid[previewBlockxy[i][0]][previewBlockxy[i][1]] != null && grid[previewBlockxy[i][0]][previewBlockxy[i][1]].isPreview == true) grid[previewBlockxy[i][0]][previewBlockxy[i][1]] = null;
-    }
-  }
+
   void dropDown() {
     for (int i = 0; i<4; i++) {
       grid[previewBlockxy[i][0]][previewBlockxy[i][1]] = grid[currentBlockxy[i][0]][currentBlockxy[i][1]];
@@ -316,8 +325,8 @@ public class Grid {
         }
       }
     }
-      delay = 60;
-      clearPreview();
+      if(toBePressed) delay = 60 - ((level-1) * 2);
+       
       makePreview();
   }
 
