@@ -3,18 +3,18 @@ public class Tetromino {
   ArrayDeque<Character> QueuedBlocks;
   Block[][] nextBlock;
   Block[][] holdBlock;
-  boolean hasNext;
+  boolean hasHold;
+  boolean canHold;
   
   public Tetromino(){
     nextBlock = new Block[4][3];
     holdBlock = new Block[4][3];
     QueuedBlocks = new ArrayDeque<Character>();
     refill();
+    canHold = true;
+    hasHold = false;
     getNextBlock();
   }
-  // void holdBlock() {
-  //   holdBlock = nextBlock[0][1].c;
-  // }
 
   void refill() { // refill the block queue if empty
     Character[] blocks = {'I', 'O', 'T', 'S', 'L', 'Z', 'J'};
@@ -53,6 +53,13 @@ public class Tetromino {
         nextBlock = makeJ();
         break;
     }
+  }
+  void clearHold(){
+   for (int i = 0; i < 4; i++){
+    for(int j = 0; j < 3; j++){
+     holdBlock[i][j] = null; 
+    }
+   }
   }
 }
 
@@ -112,7 +119,7 @@ public class Tetromino {
     tm[3][2] = new Block(J);
     return tm;
   }
-  Block[][] makeHoldBlock(color aa){
+  Block[][] makeBlock(color aa){
     if (aa == I){
       return makeI();
     }
