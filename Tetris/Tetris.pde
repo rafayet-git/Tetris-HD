@@ -1,6 +1,6 @@
 Grid map;
 int score;
-int mode = 2;
+int mode = 0;
 Tetromino pieces;
 boolean lose = false;
 boolean paused;
