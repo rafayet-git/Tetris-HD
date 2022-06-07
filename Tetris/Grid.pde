@@ -6,7 +6,7 @@ public class Grid {
   int blockLocation;
   int[][] currentBlockxy;
   int[][] previewBlockxy;
-  int[][] holdBlock = new int[4][2];
+  color holdBlock;
   int turns = 1;
   int cenX;
   int cenY;
@@ -24,7 +24,7 @@ public class Grid {
     this(20, 10, 20);
   }
   
-
+  
   void clearCurrentBool() {
     for (int i = 0; i<4; i++) {
       if (grid[currentBlockxy[i][0]][currentBlockxy[i][1]] != null)grid[currentBlockxy[i][0]][currentBlockxy[i][1]].isCurrent = false;

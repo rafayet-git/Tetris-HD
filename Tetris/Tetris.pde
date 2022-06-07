@@ -1,11 +1,12 @@
 Grid map;
 int score;
-int mode;
+int mode = 0;
 Tetromino pieces;
 boolean lose = false;
 float delay = 60;
 int linesRemoved = 0;
 int level = 1;
+
 
 final color I = color(52, 235, 222);
 final color O = color(255, 247, 0);
@@ -29,9 +30,18 @@ void setup() {
 }
 
 void draw() {
+  if (mode == 0) {
+    drawMain();
+  }
+  if (mode == 1) {
+    playClassic();
+  }
+}
+void playClassic() {
   if (!lose) {
     background(0);
     fill(255);
+    textSize(15);
     text("Next", 245, 15);
     text("Hold", 245, 170);
     text("Score: " + score, 220, 120);
@@ -63,37 +73,40 @@ void draw() {
     text("Press Backspace to restart", 220, 150);
   }
 }
-
-
+void mouseClicked() {
+  if (mouseX>125 && mouseX<275 && mouseY>200 && mouseY<240) {
+    mode=1;
+  }
+}
 void keyPressed() {
-  switch (key){
-    case 'a':
-      map.moveLeft();
-      break;
-    case 'd':
-      map.moveRight();
-      break;
-    case ' ':
-      map.dropDown();
-      break;
-    case 'w':
-      map.rotateCounter(false);
-      break;
-    case 'e':
-      map.rotateCounter(true);
-      break;
-    case 's':
-      map.moveDown();
-      break;
-    case 'p':
-      pause();
-      break;
-    case 8:
-      score = 0;
-      map.clearTable();
-      addBlock();
-      lose = false;
-      break;
+  switch (key) {
+  case 'a':
+    map.moveLeft();
+    break;
+  case 'd':
+    map.moveRight();
+    break;
+  case ' ':
+    map.dropDown();
+    break;
+  case 'w':
+    map.rotateCounter(false);
+    break;
+  case 'e':
+    map.rotateCounter(true);
+    break;
+  case 's':
+    map.moveDown();
+    break;
+  case 'p':
+    pause();
+    break;
+  case 8:
+    score = 0;
+    map.clearTable();
+    addBlock();
+    lose = false;
+    break;
   }
 }
 
@@ -124,4 +137,16 @@ void addBlock() {
   pieces.getNextBlock();
   map.clearPreview();
   map.makePreview();
+}
+
+void drawMain() {
+  background(0);
+  textSize(50);
+  fill(255);
+  text("Tetris", 125, 100);
+  fill(200, 60, 30);
+  rect(125, 200, 150, 40);
+  textSize(30);
+  fill(0);
+  text("Classic", 150, 230);
 }
