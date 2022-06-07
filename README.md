@@ -46,6 +46,12 @@ I finished rotation of all pieces, made the tetris pieces save the y coordinate 
 *6/2:*\
 I made the make functions on tetromino local, so they can be used on other functions
 
+*6/3:*\
+I made the blocks have a cooldown before being fully placed, and adjusted design
+
+*6/4:*\
+I added holding blocks for future use
+
 ### Wing Jiang
 
 *5/23:*\
