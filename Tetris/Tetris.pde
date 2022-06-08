@@ -8,7 +8,7 @@ float delay = 60;
 int linesRemoved = 0;
 int level = 1;
 boolean toBePressed;
-
+Controller keyInput;
 
 final color I = color(52, 235, 222);
 final color O = color(255, 247, 0);
@@ -21,6 +21,7 @@ final color J = color(192, 3, 255);
 void setup() {
   size(400, 500);
   map = new Grid();
+  keyInput = new Controller();
   pieces = new Tetromino();
   map.add(pieces.nextBlock);
   pieces.getNextBlock();
@@ -93,46 +94,7 @@ void mouseClicked() {
   }
 }
 void keyPressed() {
-  if (mode != 0)
-  switch (key){
-    case 'a':
-      map.moveLeft();
-      break;
-    case 'd':
-      map.moveRight();
-      break;
-    case ' ':
-      if (!toBePressed)map.dropDown();
-      delay = 0;
-      break;
-    case 'w':
-      map.rotateCounter(false);
-      break;
-    case 'e':
-      map.rotateCounter(true);
-      break;
-    case 's':
-      if (!toBePressed) delay = 60 - ((level-1) * 2);
-      map.moveDown();
-      break;
-    case 'q':
-      holdBlock();
-      break;
-    case 'p':
-      pause();
-      break;
-    case 8:
-      score = 0;
-      level = 0;
-      linesRemoved = 0;
-      map.clearTable();
-      addBlock();
-      lose = false;
-      pieces.canHold = true;
-      pieces.hasHold = false;
-      pieces.clearHold();
-      break;
-  }
+
 }
 int ticker = 15;
 boolean t = true;
