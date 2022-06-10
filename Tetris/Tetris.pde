@@ -126,7 +126,8 @@ void play40() {
     delay -= 1;
   } else if (paused) {
     fill(255, 255, 0);
-    text("Paused", 320, 120);
+    text("Paused", 220, 170);
+    text("Press Backspace to return to main screen", 220, 180);
   } else if (linesRemoved >= 40) {
     fill(255, 0, 0);
     text("Clear Time: "+time+" seconds!", 220, 190);
@@ -176,7 +177,8 @@ void playClassic() {
     delay -= 1+pow(1.00009, score);
   } else if (paused) {
     fill(255, 255, 0);
-    text("Paused", 320, 120);
+    text("Paused", 220, 170);
+    text("Press Backspace to return to main screen", 220, 180);
   } else {
     fill(255, 0, 0);
     text("Game Over!", 220, 155);
