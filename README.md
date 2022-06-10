@@ -52,6 +52,12 @@ I made the blocks have a cooldown before being fully placed, and adjusted design
 *6/6:*\
 I added holding blocks for future use
 
+*6/7:*\
+I worked on improving the rotation, i added checks for L tetromino
+
+*6/9:*\
+I finished adding basic wall kicking when rotating blocks, using 5 checks.
+
 ### Wing Jiang
 
 *5/23:*\
