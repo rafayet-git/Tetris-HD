@@ -62,3 +62,36 @@ I created the Move class. I added the methods to move and fixed Block class.
 
 *5/25:*\
 I started on the setup for Tetris class. I added the delay for block ticks and added keyPressed. 
+
+*5/26:*\
+I fixed some methods in Block and added positions to blocks. I added move to Tetris class instead.
+
+*5/27:*\
+I edited the main Tetris class to draw out grid. I also fixed moveLeft and moveRight.
+
+*5/28:*\
+I fixed the move methods and added a method to check if row is full.
+
+*5/30:*\
+I added the method to rotate the Tetromino.
+
+*5/31:*\
+I fixed the method to check if the Tetromino can rotate.
+
+*6/1:*\
+I added canRotate to all Tetrominos. I also added levels. I also started the method to hold the Tetromino.
+
+*6/2:*\
+I continued to fix the method for holding the Tetromino block.
+
+*6/5:*\
+I fixed the hold method for Tetrominos. I also made blocks fall slower as the level increases.
+
+*6/6:*\
+I added a drawMain method to display an initial screen to select which mode to play.
+
+*6/7:*\
+I added the game mode play40 where player tries to clear 40 lines in the shortest time.
+
+*6/8:*\
+I started the game mode where the rows shift up and add a new row at the bottom after every few moves.
