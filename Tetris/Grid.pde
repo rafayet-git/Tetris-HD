@@ -7,9 +7,9 @@ public class Grid {
   int[][] currentBlockxy;
   int[][] previewBlockxy;
   color holdBlock;
-  int cenX;
+  int centerX;
   int turns = 0;
-  int cenY;
+  int centerY;
   
   public Grid(int row, int col, int size_){ 
     currentBlockxy = new int[4][2];
@@ -58,11 +58,11 @@ public class Grid {
       }
     }
     if(grid[currentBlockxy[0][0]][currentBlockxy[0][1]].c == S){
-        cenX = currentBlockxy[3][0];
-        cenY = currentBlockxy[3][1];
+        centerX = currentBlockxy[3][0];
+        centerY = currentBlockxy[3][1];
     } else{
-        cenX = currentBlockxy[2][0];
-        cenY = currentBlockxy[2][1];
+        centerX = currentBlockxy[2][0];
+        centerY = currentBlockxy[2][1];
     }  
   }
   void removeRow(int row) {
@@ -91,7 +91,7 @@ public class Grid {
         removeRow(currentBlockxy[i][0]);
         i--;
         amt++;
-        cenX++;
+        centerX++;
       }
     }
     linesRemoved+=amt;
@@ -150,7 +150,7 @@ public class Grid {
       }
        
       makePreview();
-      cenY--;
+      centerY--;
       if(toBePressed)delay = 60 - ((level-1) * 2);
       if (blockLocation>=1)blockLocation--;
     }
@@ -170,7 +170,7 @@ public class Grid {
       }
        
       makePreview();
-      cenY++;
+      centerY++;
       if(toBePressed) delay = 60 - ((level-1) * 2);
       if (blockLocation<7)blockLocation++;
     }
@@ -186,7 +186,7 @@ public class Grid {
         grid[currentBlockxy[i][0]+1][currentBlockxy[i][1]].isCurrent = true;
         currentBlockxy[i][0]++;
       }
-      cenX++;
+      centerX++;
        
       makePreview();
     }
@@ -268,9 +268,10 @@ public class Grid {
       }
     } else{
       if ((orgX <= 0 || orgX >= h-1) || (orgY <= 0 || orgY >= w-1)) return false;
+      if ((centerX <= 0 || centerX >= h-1) || (centerY <= 0 || centerY >= w-1)) return false;
       for(int i = 0; i<3; i++){
         for(int j = 0; j<3; j++){
-          if (grid[orgX-1+i][orgY-1+j] != null && grid[orgX-1+i][orgY-1+j].isCurrent){
+          if (grid[centerX-1+i][centerY-1+j] != null && grid[centerX-1+i][centerY-1+j].isCurrent){
             if(reverse){
               if (grid[orgX+1-j][orgY-1+i]!=null && grid[orgX+1-j][orgY-1+i].isCurrent == false){
                return false; 
@@ -286,39 +287,73 @@ public class Grid {
     }
     return true;
   }
-  void rotateCounter( boolean rev) {
-    color col = grid[currentBlockxy[0][0]][currentBlockxy[0][1]].c;
-    if (canRotate(col, rev, cenX, cenY)){
-
+  void rotateblock(color col, boolean rev, int cenX, int cenY) {
+    if (canRotate(col, rev, cenX, cenY)) {
       if (col == I){
-        //for(int i = 0 ; i < 4; i++){
-        //  grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = null;
-        //}
-        //grid[currentBlockxy[1][0]][currentBlockxy[1][1]] = new Block(col,true);
-        //if (turns == 1){
-        //  for(int i = 0; i<4;i++){
-        //     if (i != 1){
-        //       currentBlockxy[i][1]+= (i-1);
-        //       currentBlockxy[i][0] = currentBlockxy[1][0];
-        //       grid[currentBlockxy[1][0]][currentBlockxy[i][1]] = new Block(col,true);
-        //     }
-        //  }
-        //  turns++;
-        //} else{
-        //  for(int i = 0; i<4;i++){
-        //     if (i != 1){
-        //       currentBlockxy[i][0]+= (i-1);
-        //       currentBlockxy[i][1] = currentBlockxy[1][1];
-        //       grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = new Block(col,true);
-        //     }
-        //  }
-        //  turns--;
-        //}
+        for(int i = 0 ; i < 4; i++){
+          grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = null;
+        }
+        if ((turns == 0 && !rev) || (turns == 2 && rev)){
+          for (int i = 0; i < 4; i++){
+            if (turns == 2){
+             currentBlockxy[i][0] = cenX+1;
+             currentBlockxy[i][1] = cenY-1+i;
+            }else{
+             currentBlockxy[i][0] = cenX;
+             currentBlockxy[i][1] = cenY-2+i;
+            }
+          }
+          cenX = currentBlockxy[1][0];
+          cenY = currentBlockxy[1][1];
+          turns = 1;
+        }else if ((turns == 1 && !rev) || (turns == 3 && rev)){
+          for (int i = 0; i < 4; i++){
+            if (turns == 3){
+             currentBlockxy[i][0] = cenX-1+i;
+             currentBlockxy[i][1] = cenY-1;
+            }else{
+             currentBlockxy[i][0] = cenX-2+i;
+             currentBlockxy[i][1] = cenY;
+            }
+          }
+          cenX = currentBlockxy[1][0];
+          cenY = currentBlockxy[1][1];
+          turns = 2;
+        } else if ((turns == 2 && !rev) || (turns == 0 && rev)){
+          for (int i = 0; i < 4; i++){
+            if (turns == 0){
+             currentBlockxy[i][0] = cenX-1;
+             currentBlockxy[i][1] = cenY-2+i;
+            }else{
+             currentBlockxy[i][0] = cenX;
+             currentBlockxy[i][1] = cenY-1+i;
+            }
+          }
+          cenX = currentBlockxy[2][0];
+          cenY = currentBlockxy[2][1];
+          turns = 3;
+        } else if ((turns == 3 && !rev) || (turns == 1 && rev)){
+          for (int i = 0; i < 4; i++){
+            if (turns == 1){
+             currentBlockxy[i][0] = cenX-2+i;
+             currentBlockxy[i][1] = cenY+1;
+            }else{
+             currentBlockxy[i][0] = cenX-1+i;
+             currentBlockxy[i][1] = cenY;
+            }
+          }
+          cenX = currentBlockxy[2][0];
+          cenY = currentBlockxy[2][1];
+          turns = 0;
+        }
+        for (int i = 0; i < 4; i++){
+          grid[currentBlockxy[i][0]][currentBlockxy[i][1]] = new Block(col,true);
+        }
       } else {
         int place = 0;
         for(int i = 0; i<3; i++){
           for(int j = 0; j< 3; j++){
-            if (grid[cenX-1+i][cenY-1+j] != null && grid[cenX-1+i][cenY-1+j].isCurrent && grid[cenX-1+i][cenY-1+j].isPreview == false ){
+            if (grid[centerX-1+i][centerY-1+j] != null && grid[centerX-1+i][centerY-1+j].isCurrent && grid[centerX-1+i][centerY-1+j].isPreview == false ){
               if (rev){
                 currentBlockxy[place][0] = cenX+1-j;
                 currentBlockxy[place][1] = cenY-1+i;
@@ -327,7 +362,7 @@ public class Grid {
                 currentBlockxy[place][1] = cenY+1-i; 
               }
               place++;
-              grid[cenX-1+i][cenY-1+j] = null;
+              grid[centerX-1+i][centerY-1+j] = null;
             }
           }
         }
@@ -336,9 +371,48 @@ public class Grid {
         }
       }
     }
-      if(toBePressed) delay = 60 - ((level-1) * 2);
-       
-      makePreview();
+    if(toBePressed) delay = 60 - ((level-1) * 2);    
+    makePreview();
+  }
+  void rotateCounter(boolean reverse){
+    color col = grid[currentBlockxy[0][0]][currentBlockxy[0][1]].c;
+    if (col == I){
+      if (canRotate(col, reverse, centerX, centerY)){
+        rotateblock(col, reverse, centerX, centerY);
+      } else if (canRotate(col, reverse, centerX, centerY-1)){
+        rotateblock(col, reverse, centerX, centerY-1);
+        centerY--;
+      } else if (canRotate(col, reverse, centerX, centerY+2)){
+        rotateblock(col, reverse, centerX, centerY+2);
+        centerY+=2;
+      } else if (canRotate(col, reverse, centerX-2, centerY-1)){
+        rotateblock(col, reverse, centerX-2, centerY-1);
+        centerX-=2;
+        centerY--;
+      } else if (canRotate(col, reverse, centerX+1, centerY+2)){
+        rotateblock(col, reverse, centerX+1, centerY+2);
+        centerX++;
+        centerY+=2;
+      }
+    }else{
+      if (canRotate(col, reverse, centerX, centerY)){
+        rotateblock(col, reverse, centerX, centerY);
+      } else if (canRotate(col, reverse, centerX, centerY-1)){
+        rotateblock(col, reverse, centerX, centerY-1);
+        centerY--;
+      } else if (canRotate(col, reverse, centerX-1, centerY-1)){
+        rotateblock(col, reverse, centerX-1, centerY-1);
+        centerX--;
+        centerY--;
+      } else if (canRotate(col, reverse, centerX+2, centerY)){
+        rotateblock(col, reverse, centerX+2, centerY);
+        centerX+=2;
+      } else if (canRotate(col, reverse, centerX+2, centerY-1)){
+        rotateblock(col, reverse, centerX+2, centerY-1);
+        centerX+=2;
+        centerY--;
+      }
+    }
   }
 
 
