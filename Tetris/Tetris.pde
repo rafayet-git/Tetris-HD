@@ -8,6 +8,7 @@ float delay = 60;
 int linesRemoved = 0;
 int level = 1;
 boolean toBePressed;
+float prevTime;
 
 final color I = color(52, 235, 222);
 final color O = color(255, 247, 0);
@@ -19,6 +20,7 @@ final color J = color(192, 3, 255);
 
 void setup() {
   size(400, 500);
+  prevTime = 0;
   map = new Grid();
   pieces = new Tetromino();
   map.add(pieces.nextBlock);
@@ -89,15 +91,15 @@ void moveUp() {
   }
 }
 void play40() {
-  int s = second();
-  int m = millis();
+  float time = (((float)(millis())/1000)- prevTime);
+  time = Math.round(time * 1000.0) / 1000.0;
   if (!lose && !paused && linesRemoved<40) {
     background(0);
     fill(255);
     textSize(15);
     text("Next", 245, 15);
     text("Hold", 335, 15);
-    text("Time: "+s+"."+m+"sec", 220, 120);
+    text("Time: "+time+" sec", 220, 120);
     text("Lines: " + linesRemoved, 300, 135);
     drawGrid(map.grid, 0, 0);
     drawGrid(pieces.nextBlock, 228, 20);
@@ -127,7 +129,7 @@ void play40() {
     text("Paused", 320, 120);
   } else if (linesRemoved >= 40) {
     fill(255, 0, 0);
-    text("Clear Time: "+s+"."+m+" seconds!", 220, 190);
+    text("Clear Time: "+time+" seconds!", 220, 190);
     text("Press Backspace to restart", 220, 200);
   } else {
     fill(255, 0, 0);
@@ -219,6 +221,7 @@ void keyPressed() {
       pause();
       break;
     case 8:
+      prevTime = (float)(millis())/1000;
       score = 0;
       level = 0;
       linesRemoved = 0;
