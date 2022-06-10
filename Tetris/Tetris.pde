@@ -38,6 +38,102 @@ void draw() {
   if (mode == 1) {
     playClassic();
   }
+  if (mode == 2) {
+    play40();
+  }
+}
+void moveUp() {
+  if (!lose && !paused) {
+    background(0);
+    fill(255);
+    textSize(15);
+    text("Next", 245, 15);
+    text("Hold", 335, 15);
+    text("Level: " + level, 220, 135);
+    text("Lines: " + linesRemoved, 300, 135);
+    text("Score: " + score, 220, 120);
+    drawGrid(map.grid, 0, 0);
+    drawGrid(pieces.nextBlock, 228, 20);
+    drawGrid(pieces.holdBlock, 320, 20);
+    if (map.canLockIn()) {
+      toBePressed = true;
+    } else {
+      toBePressed = false;
+    }
+    if (linesRemoved == 10*(level)) {
+      level += 1;
+    }
+    if (delay <= 0) {
+      delay = 60 - ((level-1) * 2);
+      if (!toBePressed) {
+        map.moveDown();
+      } else {
+        score+=20;
+        map.clearCurrentBool();
+        map.removeFullRows();
+        if (map.checkLost()) lose = true;
+        map.add(pieces.nextBlock);
+        pieces.getNextBlock();
+        map.makePreview();
+        pieces.canHold = true;
+      }
+    }
+    delay -= 1+pow(1.00009, score);
+  } else if (paused) {
+    fill(255, 255, 0);
+    text("Paused", 320, 120);
+  } else {
+    fill(255, 0, 0);
+    text("Game Over!", 220, 155);
+    text("Press Backspace to restart", 220, 170);
+  }
+}
+void play40() {
+  int s = second();
+  int m = millis();
+  if (!lose && !paused && linesRemoved<40) {
+    background(0);
+    fill(255);
+    textSize(15);
+    text("Next", 245, 15);
+    text("Hold", 335, 15);
+    text("Time: "+s+"."+m+"sec", 220, 120);
+    text("Lines: " + linesRemoved, 300, 135);
+    drawGrid(map.grid, 0, 0);
+    drawGrid(pieces.nextBlock, 228, 20);
+    drawGrid(pieces.holdBlock, 320, 20);
+    if (map.canLockIn()) {
+      toBePressed = true;
+    } else {
+      toBePressed = false;
+    }
+    if (delay <= 0) {
+      delay = 60;
+      if (!toBePressed) {
+        map.moveDown();
+      } else {
+        map.clearCurrentBool();
+        map.removeFullRows();
+        if (map.checkLost()) lose = true;
+        map.add(pieces.nextBlock);
+        pieces.getNextBlock();
+        map.makePreview();
+        pieces.canHold = true;
+      }
+    }
+    delay -= 1;
+  } else if (paused) {
+    fill(255, 255, 0);
+    text("Paused", 320, 120);
+  } else if (linesRemoved >= 40) {
+    fill(255, 0, 0);
+    text("Clear Time: "+s+"."+m+" seconds!", 220, 190);
+    text("Press Backspace to restart", 220, 200);
+  } else {
+    fill(255, 0, 0);
+    text("Game Over!", 220, 155);
+    text("Press Backspace to restart", 220, 170);
+  }
 }
 void playClassic() {
   if (!lose && !paused) {
@@ -54,18 +150,17 @@ void playClassic() {
     drawGrid(pieces.holdBlock, 320, 20);
     if (map.canLockIn()) {
       toBePressed = true;
-
-    }else{
-     toBePressed = false; 
+    } else {
+      toBePressed = false;
     }
     if (linesRemoved == 10*(level)) {
       level += 1;
     }
     if (delay <= 0) {
       delay = 60 - ((level-1) * 2);
-      if (!toBePressed){
+      if (!toBePressed) {
         map.moveDown();
-      }else{
+      } else {
         score+=20;
         map.clearCurrentBool();
         map.removeFullRows();
@@ -77,10 +172,10 @@ void playClassic() {
       }
     }
     delay -= 1+pow(1.00009, score);
-  } else if (paused){
+  } else if (paused) {
     fill(255, 255, 0);
     text("Paused", 320, 120);
-  }else {
+  } else {
     fill(255, 0, 0);
     text("Game Over!", 220, 155);
     text("Press Backspace to restart", 220, 170);
@@ -89,6 +184,9 @@ void playClassic() {
 void mouseClicked() {
   if (mouseX>125 && mouseX<275 && mouseY>200 && mouseY<240) {
     mode=1;
+  }
+  if (mouseX>125 && mouseX<275 && mouseY>260 && mouseY<300) {
+    mode=2;
   }
 }
 void keyPressed() {
@@ -131,8 +229,8 @@ void keyPressed() {
       pieces.hasHold = false;
       pieces.clearHold();
       break;
-    }}
-
+    }
+}
 int ticker = 15;
 boolean t = true;
 void drawGrid(Block[][] ary, int x, int y) {
@@ -145,13 +243,15 @@ void drawGrid(Block[][] ary, int x, int y) {
           fill(0);
         }
       } else if (!ary[i][j].isPreview ) {
-        if(toBePressed && ary[i][j].isCurrent){
-          if (t){fill(ary[i][j].c);} else{
+        if (toBePressed && ary[i][j].isCurrent) {
+          if (t) {
+            fill(ary[i][j].c);
+          } else {
             color a = ary[i][j].c;
             fill(color(red(a), green(a), blue(a), 100));
           }
-        } else{
-           fill(ary[i][j].c);          
+        } else {
+          fill(ary[i][j].c);
         }
       } else {
         color a = ary[i][j].c;
@@ -163,12 +263,16 @@ void drawGrid(Block[][] ary, int x, int y) {
     }
     y++;
   }
-  if (ticker <= 0){
+  if (ticker <= 0) {
     ticker = 15;
-    if (t){
+    if (t) {
       t = false;
-    }else {t = true;}
-  }else {ticker--;}
+    } else {
+      t = true;
+    }
+  } else {
+    ticker--;
+  }
 }
 
 void addBlock() {
@@ -177,23 +281,23 @@ void addBlock() {
   map.makePreview();
 }
 
-void pause(){
-  if (paused){
-     paused = false; 
-  } else{
-   paused = true; 
+void pause() {
+  if (paused) {
+    paused = false;
+  } else {
+    paused = true;
   }
 }
 
-void holdBlock(){
-  if (pieces.canHold){
+void holdBlock() {
+  if (pieces.canHold) {
     color temp = map.getColor();
-    if (pieces.hasHold){
+    if (pieces.hasHold) {
       map.removeCurrentBlocks();
       map.add(pieces.holdBlock);
       pieces.holdBlock = makeBlock(temp);
       pieces.canHold = false;
-    }else{
+    } else {
       map.removeCurrentBlocks();
       pieces.holdBlock = makeBlock(temp);
       map.add(pieces.nextBlock);
@@ -204,14 +308,21 @@ void holdBlock(){
     map.makePreview();
   }
 }
-void drawMain(){
+void drawMain() {
   background(0);
   textSize(50);
   fill(255);
   text("Tetris", 125, 100);
   fill(200, 60, 30);
   rect(125, 200, 150, 40);
-  textSize(30);
+  textSize(25);
   fill(0);
-  text("Classic", 150, 230);
+  text("Classic", 160, 230);
+  fill(200, 60, 30);
+  rect(125, 260, 150, 40);
+  fill(0);
+  text("40 Lines", 150, 290);
+}
+void moveRowUp() {
+  
 }
