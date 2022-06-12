@@ -332,5 +332,3 @@ void drawMain() {
   fill(0);
   text("40 Lines", 150, 290);
 }
-void moveRowUp() {
-}
