@@ -48,7 +48,7 @@ void moveUp() {
   if (!lose && !paused) {
     background(0);
     fill(255);
-    textSize(15);
+    textSize(10);
     text("Next", 245, 15);
     text("Hold", 335, 15);
     text("Level: " + level, 220, 135);
@@ -96,7 +96,7 @@ void play40() {
   if (!lose && !paused && linesRemoved<40) {
     background(0);
     fill(255);
-    textSize(15);
+    textSize(10);
     text("Next", 245, 15);
     text("Hold", 335, 15);
     text("Time: "+time+" sec", 220, 120);
@@ -126,7 +126,8 @@ void play40() {
     delay -= 1;
   } else if (paused) {
     fill(255, 255, 0);
-    text("Paused", 320, 120);
+    text("Paused", 220, 170);
+    text("Press Backspace to return to main screen", 220, 180);
   } else if (linesRemoved >= 40) {
     fill(255, 0, 0);
     text("Clear Time: "+time+" seconds!", 220, 190);
@@ -141,7 +142,7 @@ void playClassic() {
   if (!lose && !paused) {
     background(0);
     fill(255);
-    textSize(15);
+    textSize(10);
     text("Next", 245, 15);
     text("Hold", 335, 15);
     text("Level: " + level, 220, 135);
@@ -176,7 +177,8 @@ void playClassic() {
     delay -= 1+pow(1.00009, score);
   } else if (paused) {
     fill(255, 255, 0);
-    text("Paused", 320, 120);
+    text("Paused", 220, 170);
+    text("Press Backspace to return to main screen", 220, 180);
   } else {
     fill(255, 0, 0);
     text("Game Over!", 220, 155);
@@ -221,6 +223,10 @@ void keyPressed() {
       pause();
       break;
     case 8:
+      if (paused) {
+        mode = 0;
+        paused = false;
+      }
       prevTime = (float)(millis())/1000;
       score = 0;
       level = 0;
@@ -325,7 +331,4 @@ void drawMain() {
   rect(125, 260, 150, 40);
   fill(0);
   text("40 Lines", 150, 290);
-}
-void moveRowUp() {
-  
 }
