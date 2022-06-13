@@ -5,7 +5,7 @@ Tetris for APCS Final Project
 
 By : Wing Jiang, Rafayet Hossain
 
-https://docs.google.com/document/d/1ruSu0zpMZb-U_gtxiN6U1kYi0UaYIY6zf_DUmGutIEc/edit
+[Link to prototype](https://docs.google.com/document/d/1ruSu0zpMZb-U_gtxiN6U1kYi0UaYIY6zf_DUmGutIEc/edit)
 
 
 **Brief Project Description:**
@@ -15,6 +15,18 @@ We are going to be making Tetris in Processing. You play Tetris by trying to fil
 
   * Requires Processing 3.5.4 (https://processing.org/download)
   
+## Controls:
+
+  * 'w' to rotate clockwise, 'e' to rotate counterclockwise
+  * 'a' to move left, 'd' to move right
+  * Spacebar to drop blocks down
+  * 'q' to hold block
+  * 's' to move down
+  * Backspace to reset board
+  * 'p' to pause
+	* Pressing backspace here will return to menu
+  * (CHEAT!) 'x' to add lines cleared count by 1
+
 ## Development logs:
 
 ### Rafayet Hossain
