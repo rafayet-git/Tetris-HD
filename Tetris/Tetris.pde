@@ -9,6 +9,7 @@ int linesRemoved = 0;
 int level = 1;
 boolean toBePressed;
 float prevTime;
+float time = 0;
 
 final color I = color(52, 235, 222);
 final color O = color(255, 247, 0);
@@ -19,7 +20,7 @@ final color Z = color(255, 3, 53);
 final color J = color(192, 3, 255);
 
 void setup() {
-  size(400, 500);
+  size(400, 530);
   prevTime = 0;
   map = new Grid();
   pieces = new Tetromino();
@@ -62,7 +63,7 @@ void moveUp() {
     } else {
       toBePressed = false;
     }
-    if (linesRemoved == 10*(level)) {
+    if (linesRemoved == (10*level)) {
       level += 1;
     }
     if (delay <= 0) {
@@ -91,19 +92,19 @@ void moveUp() {
   }
 }
 void play40() {
-  float time = (((float)(millis())/1000)- prevTime);
-  time = Math.round(time * 1000.0) / 1000.0;
+  background(0);
+  fill(255);
+  textSize(10);
+  text("Next", 245, 15);
+  text("Hold", 335, 15);
+  text("Time: "+time+" sec", 220, 120);
+  drawGrid(map.grid, 0, 0);
+  drawGrid(pieces.nextBlock, 228, 20);
+  drawGrid(pieces.holdBlock, 320, 20);
   if (!lose && !paused && linesRemoved<40) {
-    background(0);
     fill(255);
-    textSize(10);
-    text("Next", 245, 15);
-    text("Hold", 335, 15);
-    text("Time: "+time+" sec", 220, 120);
     text("Lines: " + linesRemoved, 300, 135);
-    drawGrid(map.grid, 0, 0);
-    drawGrid(pieces.nextBlock, 228, 20);
-    drawGrid(pieces.holdBlock, 320, 20);
+    time = Math.round((((float)(millis())/1000)- prevTime) * 1000.0) / 1000.0;
     if (map.canLockIn()) {
       toBePressed = true;
     } else {
@@ -221,6 +222,9 @@ void keyPressed() {
       break;
     case 'p':
       pause();
+      break;
+    case 'x':
+      linesRemoved++;
       break;
     case 8:
       if (paused) {
